@@ -32,7 +32,8 @@
 		"nrwl.angular-console",
 		"ms-vscode-remote.remote-containers",
 		"firsttris.vscode-jest-runner",
-		"vivaxy.vscode-conventional-commits"
+		"vivaxy.vscode-conventional-commits",
+		"gamunu.vscode-yarn"
 	]
     }
   }
