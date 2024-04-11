@@ -5,7 +5,7 @@ import { getNodeHash } from '../utils/hasher';
 import { getNodeId } from '../utils/nodeId';
 import { TrrackNode, RootNode } from './types';
 
-type RootNodeCreationOpts<Metadata extends {} = {}> = Partial<{
+export type RootNodeCreationOpts<Metadata extends {} = {}> = Partial<{
   author: string;
   label: string;
   type: string;
@@ -14,13 +14,13 @@ type RootNodeCreationOpts<Metadata extends {} = {}> = Partial<{
 
 export function createRootNode<State, Metadata extends {} = {}>(
   state: State,
-  opts: RootNodeCreationOpts<Metadata> = {}
+  opts: RootNodeCreationOpts<Metadata> = {} as Metadata
 ): RootNode<State, Metadata> {
   const {
     author = 'unknown',
     label = 'Root Node',
     type = 'initialize',
-    ...metadata
+    metadata = {},
   } = opts;
 
   const id = getNodeId();
@@ -30,7 +30,7 @@ export function createRootNode<State, Metadata extends {} = {}>(
     id,
     hash,
     __root: true,
-    __nodeType: 'snapshot',
+    __nodeType: 'state:snapshot',
     label,
     type,
     payload: {

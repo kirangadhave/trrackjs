@@ -21,7 +21,6 @@ export type ActionRecord = {
   actionName: string;
   args: any[];
 };
-
 export type SideEffect = {
   type: 'sideeffect';
   do: ActionRecord;
@@ -36,7 +35,7 @@ export type BaseMetadata = {
 
 export type BaseNode<Metadata> = {
   __root: boolean;
-  __nodeType: 'snapshot' | 'diff' | 'sideeffect';
+  __nodeType: 'state:snapshot' | 'state:diff' | 'sideeffect';
   hash: string;
   id: NodeId;
   label: string;
@@ -65,7 +64,7 @@ export type StateNode<State, Metadata = {}> =
   | SnapshotNode<State, Metadata>
   | DiffNode<Metadata>;
 
-export type SideEffectNode<Metadata = {}> = BaseNode<Metadata> & {
+export type SideEffectNode<Metadata = {}> = NodeWithParent<Metadata> & {
   payload: SideEffect;
 };
 

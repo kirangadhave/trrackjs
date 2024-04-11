@@ -2,12 +2,8 @@
 import { Immutable } from 'immer';
 import { NodeId, TrrackNodes } from '../nodes';
 
-export type MutableTrrackGraph<State, Metadata = {}> = {
+export type TrrackGraph<State, Metadata = {}> = Immutable<{
   nodes: TrrackNodes<State, Metadata>;
   current: NodeId;
   root: NodeId;
-};
-
-export type TrrackGraph<State, Metadata = {}> = Immutable<
-  MutableTrrackGraph<State, Metadata>
->;
+}>;

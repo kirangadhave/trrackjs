@@ -1,30 +1,71 @@
-import { castImmutable, produce } from 'immer';
-import { RootNode, createRootNode } from '../nodes';
-import { MutableTrrackGraph, TrrackGraph } from './types';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-types */
+import { castDraft, castImmutable, produce } from 'immer';
+import { TrrackGraph } from './types';
+import {
+  ChildNode,
+  NodeId,
+  RootNodeCreationOpts,
+  TrrackNode,
+  createRootNode,
+} from '../nodes';
 
-export function createTrrackGraph<State, Metadata = {}>(
-  initialState: State
+export type TrrackGraphCreationOpts<Metadata extends {} = {}> = Partial<{
+  root: RootNodeCreationOpts<Metadata>;
+}>;
+
+export function createTrrackGraph<State, Metadata extends {} = {}>(
+  initialState: State,
+  opts?: TrrackGraphCreationOpts<Metadata>
 ): TrrackGraph<State, Metadata> {
-  const emptyGraph: TrrackGraph<State, Metadata> = {
-    nodes: {},
-    root: '',
-    current: '',
-  };
+  const root = createRootNode(initialState, opts?.root);
 
-  const graph = produce(
-    emptyGraph,
-    (draft, root: RootNode<State, Metadata>) => {
-      draft.nodes[root.id] = root;
-      draft.root = root.id;
-      draft.current = root.id;
-    }
-  );
-
-  return castImmutable({
+  const graph: TrrackGraph<State, Metadata> = {
     nodes: {
-      [castImmutable(root.id)]: root,
+      [root.id]: castDraft(root),
     },
     current: root.id,
     root: root.id,
+  };
+
+  return graph;
+}
+
+export function addNode<State, Metadata extends {} = {}>(
+  graph: TrrackGraph<State, Metadata>,
+  node: ChildNode<State, Metadata>
+): TrrackGraph<State, Metadata> {
+  return produce(graph, (draft) => {
+    if (!draft.nodes[node.parent]) {
+      throw new Error('Parent node does not exist');
+    }
+
+    draft.nodes[node.id] = castDraft(castImmutable(node));
+    draft.nodes[node.parent].children.push(node.id);
+    draft.current = node.id;
   });
 }
+
+export function setCurrentNode<State, Metadata extends {} = {}>(
+  graph: TrrackGraph<State, Metadata>,
+  node: NodeId | ChildNode<State, Metadata>
+): TrrackGraph<State, Metadata> {
+  return produce(graph, (draft) => {
+    draft.current = typeof node === 'string' ? node : node.id;
+  });
+}
+
+export function addMetadata<State, Metadata extends {} = {}>(
+  graph: TrrackGraph<State, Metadata>,
+  metadata: Metadata
+): TrrackGraph<State, Metadata> {
+  return produce(graph, (draft) => {
+    const previousMetadata = draft.nodes[draft.current].metadata;
+    
+    draft.nodes[draft.current].metadata = {
+      ...previousMetadata,
+      ...metadata,
+    };
+  });
+}
+)
