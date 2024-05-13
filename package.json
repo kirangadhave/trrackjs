@@ -49,7 +49,6 @@
     "@mui/material": "^5.8.1",
     "@nrwl/cli": "15.6.3",
     "@nrwl/nx-cloud": "18.0.1",
-    "@nrwl/react": "16.0.0",
     "@nrwl/vite": "16.0.0",
     "@nrwl/web": "16.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
@@ -111,7 +110,8 @@
     "@nx/eslint-plugin": "16.0.0",
     "@nx/jest": "16.0.0",
     "@nx/linter": "16.0.0",
-    "@nx/js": "16.0.0"
+    "@nx/js": "16.0.0",
+    "@nx/react": "16.0.0"
   },
   "config": {
     "commitizen": {
