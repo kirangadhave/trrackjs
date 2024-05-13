@@ -48,7 +48,6 @@
     "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.1",
     "@nrwl/cli": "15.6.3",
-    "@nrwl/nx-cloud": "18.0.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@svgr/webpack": "^6.1.2",
     "@swc/cli": "0.1.65",
@@ -119,4 +118,3 @@
     }
   }
 }
-
