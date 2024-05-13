@@ -14,9 +14,6 @@ importers:
       '@mantine/hooks':
         specifier: ^4.2.12
         version: 4.2.12(react@18.2.0)
-      '@nx/next':
-        specifier: 17.0.0
-        version: 17.0.0(@babel/core@7.24.5)(@babel/traverse@7.24.5)(@swc/core@1.3.107(@swc/helpers@0.5.11))(@swc/wasm@1.2.130)(@types/node@18.11.9)(eslint@8.46.0)(file-loader@6.2.0(webpack@5.91.0(@swc/core@1.3.107(@swc/helpers@0.5.11))))(next@13.3.0(@babel/core@7.24.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.77.1))(nx@17.0.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))(typescript@5.1.6)(webpack@5.91.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))
       '@reduxjs/toolkit':
         specifier: ^1.9.1
         version: 1.9.7(react-redux@8.0.5(@types/react-dom@18.2.9)(@types/react@18.2.24)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@4.2.1))(react@18.2.0)
@@ -66,6 +63,9 @@ importers:
         specifier: ^9.0.0
         version: 9.0.1
     devDependencies:
+      '@babel/core':
+        specifier: ^7.14.5
+        version: 7.24.5
       '@babel/preset-react':
         specifier: ^7.14.5
         version: 7.24.1(@babel/core@7.24.5)
@@ -102,9 +102,9 @@ importers:
       '@nrwl/cli':
         specifier: 15.6.3
         version: 15.6.3(@swc/core@1.3.107(@swc/helpers@0.5.11))
-      '@nrwl/nx-cloud':
-        specifier: 18.0.1
-        version: 18.0.1
+      '@nx/eslint':
+        specifier: 17.0.0
+        version: 17.0.0(@babel/traverse@7.24.5)(@swc/core@1.3.107(@swc/helpers@0.5.11))(@swc/wasm@1.2.130)(@types/node@18.11.9)(eslint@8.46.0)(nx@17.0.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))
       '@nx/eslint-plugin':
         specifier: 17.0.0
         version: 17.0.0(@babel/traverse@7.24.5)(@swc/core@1.3.107(@swc/helpers@0.5.11))(@swc/wasm@1.2.130)(@types/node@18.11.9)(@typescript-eslint/parser@5.62.0(eslint@8.46.0)(typescript@5.1.6))(eslint-config-prettier@9.1.0(eslint@8.46.0))(eslint@8.46.0)(nx@17.0.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))(typescript@5.1.6)
@@ -114,9 +114,9 @@ importers:
       '@nx/js':
         specifier: 17.0.0
         version: 17.0.0(@babel/traverse@7.24.5)(@swc/core@1.3.107(@swc/helpers@0.5.11))(@swc/wasm@1.2.130)(@types/node@18.11.9)(nx@17.0.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))(typescript@5.1.6)
-      '@nx/linter':
+      '@nx/next':
         specifier: 17.0.0
-        version: 17.0.0(@babel/traverse@7.24.5)(@swc/core@1.3.107(@swc/helpers@0.5.11))(@swc/wasm@1.2.130)(@types/node@18.11.9)(eslint@8.46.0)(nx@17.0.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))
+        version: 17.0.0(@babel/core@7.24.5)(@babel/traverse@7.24.5)(@swc/core@1.3.107(@swc/helpers@0.5.11))(@swc/wasm@1.2.130)(@types/node@18.11.9)(eslint@8.46.0)(file-loader@6.2.0(webpack@5.91.0(@swc/core@1.3.107(@swc/helpers@0.5.11))))(next@13.3.0(@babel/core@7.24.5)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.77.1))(nx@17.0.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))(typescript@5.1.6)(webpack@5.91.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))
       '@nx/react':
         specifier: 17.0.0
         version: 17.0.0(@babel/traverse@7.24.5)(@swc/core@1.3.107(@swc/helpers@0.5.11))(@swc/wasm@1.2.130)(@types/node@18.11.9)(eslint@8.46.0)(nx@17.0.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))(typescript@5.1.6)(webpack@5.91.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))
@@ -237,9 +237,6 @@ importers:
       react-refresh:
         specifier: ^0.10.0
         version: 0.10.0
-      react-test-renderer:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
       semantic-release-npm-github-publish:
         specifier: ^1.5.4
         version: 1.5.5(@semantic-release/changelog@6.0.3(semantic-release@23.1.1(typescript@5.1.6)))(@semantic-release/commit-analyzer@12.0.0(semantic-release@23.1.1(typescript@5.1.6)))(@semantic-release/git@10.0.1(semantic-release@23.1.1(typescript@5.1.6)))(@semantic-release/github@10.0.3(semantic-release@23.1.1(typescript@5.1.6)))(@semantic-release/npm@12.0.1(semantic-release@23.1.1(typescript@5.1.6)))(@semantic-release/release-notes-generator@13.0.0(semantic-release@23.1.1(typescript@5.1.6)))(semantic-release@23.1.1(typescript@5.1.6))
@@ -1831,9 +1828,6 @@ packages:
   '@nrwl/next@17.0.0':
     resolution: {integrity: sha512-75MXJy/oLM1/N7fqb0wW5ij/xc67RVKn86UHNhTrSOBMlGUXAbllZ+dCiKaLUdrTIEPdLvUnv7oUvw/1F+eroQ==}
 
-  '@nrwl/nx-cloud@18.0.1':
-    resolution: {integrity: sha512-uYVxoOXf0xlWJX8O5GBWajmIeL0PfIGvfqtvVNVnl7C6FiZRbmKEhXkWxEDekI6Jq+mI1G86o7d5YsIzq6e36A==}
-
   '@nrwl/react@17.0.0':
     resolution: {integrity: sha512-YXm5of00b2wa/y4lRsddORtW5yRkG9tn7G2NRwcPUqvCfSOlZsr6iPXa45nW8/EcPjAhl73nA+rjsnTLDouUdA==}
 
@@ -3286,9 +3280,6 @@ packages:
     resolution: {integrity: sha512-QbUdXJVTpvUTHU7871ppZkdOLBeGUKBQWHkHrvN2V9IQWGMt61zf3B45BtzjxEJzYuj0JBjBZP/hmYS/R9pmAw==}
     engines: {node: '>=4'}
 
-  axios@1.1.3:
-    resolution: {integrity: sha512-00tXVRwKx/FZr/IDVFt4C+f9FYairX517WoGCL6dpOntqLkZofjhu43F/Xl44UOpqa+9sLFDrG/XAnFsUYgkDA==}
-
   axios@1.6.8:
     resolution: {integrity: sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==}
 
@@ -3559,10 +3550,6 @@ packages:
 
   chownr@1.1.4:
     resolution: {integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==}
-
-  chownr@2.0.0:
-    resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
-    engines: {node: '>=10'}
 
   chrome-trace-event@1.0.3:
     resolution: {integrity: sha512-p3KULyQg4S7NIHixdwbGX+nFHkoBiA4YQmyWtjb8XngSKV124nJmRysgAeujbUVb15vh+RvFUfCPqU7rXk+hZg==}
@@ -5037,10 +5024,6 @@ packages:
   fs-extra@9.1.0:
     resolution: {integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==}
     engines: {node: '>=10'}
-
-  fs-minipass@2.1.0:
-    resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
-    engines: {node: '>= 8'}
 
   fs-monkey@1.0.6:
     resolution: {integrity: sha512-b1FMfwetIKymC0eioW7mTywihSQE4oLzQn1dB6rZB5fx/3NpNEdAWeCSMB+60/AeT0TCXsxzAlcYVEFCTAksWg==}
@@ -6703,32 +6686,15 @@ packages:
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
-  minipass@3.3.6:
-    resolution: {integrity: sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==}
-    engines: {node: '>=8'}
-
-  minipass@5.0.0:
-    resolution: {integrity: sha512-3FnjYuehv9k6ovOEbyOswadCDPX1piCfhV8ncmYtHOjuPwylVWsghTLo7rabjC3Rx5xD4HDx8Wm1xnMF7S5qFQ==}
-    engines: {node: '>=8'}
-
   minipass@7.1.1:
     resolution: {integrity: sha512-UZ7eQ+h8ywIRAW1hIEl2AqdwzJucU/Kp59+8kkZeSvafXhZjul247BvIJjEVFVeON6d7lM46XX1HXCduKAS8VA==}
     engines: {node: '>=16 || 14 >=14.17'}
-
-  minizlib@2.1.2:
-    resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
-    engines: {node: '>= 8'}
 
   mkdirp-classic@0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
 
   mkdirp@0.5.6:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
-    hasBin: true
-
-  mkdirp@1.0.4:
-    resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
-    engines: {node: '>=10'}
     hasBin: true
 
   mkdirp@2.1.6:
@@ -7115,10 +7081,6 @@ packages:
 
   nwsapi@2.2.10:
     resolution: {integrity: sha512-QK0sRs7MKv0tKe1+5uZIQk/C8XGza4DAnztJG8iD+TpJIORARrCxczA738awHrZoHeTjSSoHqao2teO0dC/gFQ==}
-
-  nx-cloud@18.0.1:
-    resolution: {integrity: sha512-nxJfz0ZmW+DKSr8evmVVm6t1XcLn9WHR5I8kiE2BFNkLVwC+nx+MimjJ53opfHOepMqQiGJAdstZ5Ks630bJgg==}
-    hasBin: true
 
   nx@15.6.3:
     resolution: {integrity: sha512-3t0A0GPLNen1yPAyE+VGZ3nkAzZYb5nfXtAcx8SHBlKq4u42yBY3khBmP1y4Og3jhIwFIj7J7Npeh8ZKrthmYQ==}
@@ -7726,16 +7688,6 @@ packages:
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
     engines: {node: '>=0.10.0'}
-
-  react-shallow-renderer@16.15.0:
-    resolution: {integrity: sha512-oScf2FqQ9LFVQgA73vr86xl2NaOIX73rh+YFqcOp68CWj56tSfgtGKrEbyhCj0rSijyG9M1CYprTh39fBi5hzA==}
-    peerDependencies:
-      react: ^16.0.0 || ^17.0.0 || ^18.0.0
-
-  react-test-renderer@18.2.0:
-    resolution: {integrity: sha512-JWD+aQ0lh2gvh4NM3bBM42Kx+XybOxCpgYK7F8ugAlpaTSnWsX+39Z4XkOykGZAHrjwwTZT3x3KxswVWxHPUqA==}
-    peerDependencies:
-      react: ^18.2.0
 
   react-textarea-autosize@8.5.3:
     resolution: {integrity: sha512-XT1024o2pqCuZSuBt9FwHlaDeNtVrtCXu0Rnz88t1jUGheCLa3PhjE1GH8Ctm2axEtvdCl5SUHYschyQ0L5QHQ==}
@@ -8583,10 +8535,6 @@ packages:
   tar-stream@2.2.0:
     resolution: {integrity: sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==}
     engines: {node: '>=6'}
-
-  tar@6.2.1:
-    resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
-    engines: {node: '>=10'}
 
   temp-dir@2.0.0:
     resolution: {integrity: sha512-aoBAniQmmwtcKp/7BzsH8Cxzv8OL736p7v1ihGb5e9DJ9kTwGWHrQrVB5+lfVDzfGrdRzXch+ig7LHaY1JTOrg==}
@@ -11369,12 +11317,6 @@ snapshots:
       - verdaccio
       - webpack
 
-  '@nrwl/nx-cloud@18.0.1':
-    dependencies:
-      nx-cloud: 18.0.1
-    transitivePeerDependencies:
-      - debug
-
   '@nrwl/react@17.0.0(@babel/traverse@7.24.5)(@swc/core@1.3.107(@swc/helpers@0.5.11))(@swc/wasm@1.2.130)(@types/node@18.11.9)(eslint@8.46.0)(nx@17.0.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))(typescript@5.1.6)(webpack@5.91.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))':
     dependencies:
       '@nx/react': 17.0.0(@babel/traverse@7.24.5)(@swc/core@1.3.107(@swc/helpers@0.5.11))(@swc/wasm@1.2.130)(@types/node@18.11.9)(eslint@8.46.0)(nx@17.0.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))(typescript@5.1.6)(webpack@5.91.0(@swc/core@1.3.107(@swc/helpers@0.5.11)))
@@ -13336,14 +13278,6 @@ snapshots:
 
   axe-core@4.9.1: {}
 
-  axios@1.1.3:
-    dependencies:
-      follow-redirects: 1.15.6
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
-
   axios@1.6.8:
     dependencies:
       follow-redirects: 1.15.6
@@ -13696,8 +13630,6 @@ snapshots:
       fsevents: 2.3.3
 
   chownr@1.1.4: {}
-
-  chownr@2.0.0: {}
 
   chrome-trace-event@1.0.3: {}
 
@@ -15535,10 +15467,6 @@ snapshots:
       graceful-fs: 4.2.11
       jsonfile: 6.1.0
       universalify: 2.0.1
-
-  fs-minipass@2.1.0:
-    dependencies:
-      minipass: 3.3.6
 
   fs-monkey@1.0.6:
     optional: true
@@ -17785,26 +17713,13 @@ snapshots:
 
   minimist@1.2.8: {}
 
-  minipass@3.3.6:
-    dependencies:
-      yallist: 4.0.0
-
-  minipass@5.0.0: {}
-
   minipass@7.1.1: {}
-
-  minizlib@2.1.2:
-    dependencies:
-      minipass: 3.3.6
-      yallist: 4.0.0
 
   mkdirp-classic@0.5.3: {}
 
   mkdirp@0.5.6:
     dependencies:
       minimist: 1.2.8
-
-  mkdirp@1.0.4: {}
 
   mkdirp@2.1.6: {}
 
@@ -18068,21 +17983,6 @@ snapshots:
       boolbase: 1.0.0
 
   nwsapi@2.2.10: {}
-
-  nx-cloud@18.0.1:
-    dependencies:
-      '@nrwl/nx-cloud': 18.0.1
-      axios: 1.1.3
-      chalk: 4.1.2
-      dotenv: 10.0.0
-      fs-extra: 11.2.0
-      node-machine-id: 1.1.12
-      open: 8.4.2
-      strip-json-comments: 3.1.1
-      tar: 6.2.1
-      yargs-parser: 21.1.1
-    transitivePeerDependencies:
-      - debug
 
   nx@15.6.3(@swc/core@1.3.107(@swc/helpers@0.5.11)):
     dependencies:
@@ -18739,19 +18639,6 @@ snapshots:
   react-refresh@0.10.0: {}
 
   react-refresh@0.14.2: {}
-
-  react-shallow-renderer@16.15.0(react@18.2.0):
-    dependencies:
-      object-assign: 4.1.1
-      react: 18.2.0
-      react-is: 18.3.1
-
-  react-test-renderer@18.2.0(react@18.2.0):
-    dependencies:
-      react: 18.2.0
-      react-is: 18.3.1
-      react-shallow-renderer: 16.15.0(react@18.2.0)
-      scheduler: 0.23.2
 
   react-textarea-autosize@8.5.3(@types/react@18.2.24)(react@18.2.0):
     dependencies:
@@ -19822,15 +19709,6 @@ snapshots:
       fs-constants: 1.0.0
       inherits: 2.0.4
       readable-stream: 3.6.2
-
-  tar@6.2.1:
-    dependencies:
-      chownr: 2.0.0
-      fs-minipass: 2.1.0
-      minipass: 5.0.0
-      minizlib: 2.1.2
-      mkdirp: 1.0.4
-      yallist: 4.0.0
 
   temp-dir@2.0.0: {}
 
