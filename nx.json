@@ -11,7 +11,7 @@
     "libsDir": "packages"
   },
   "cli": {
-    "packageManager": "pnpm"
+    "packageManager": "npm"
   },
   "generators": {
     "@nx/web:application": {
@@ -88,5 +88,15 @@
     }
   },
   "nxCloudAccessToken": "MTVhOGI4MDItZWYwYi00ODJiLTkxY2UtYzFkZTY2NjA2NWIyfHJlYWQtd3JpdGU=",
-  "defaultBase": "main"
+  "defaultBase": "main",
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint",
+        "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
+      },
+      "include": ["packages/core/**/*"]
+    }
+  ]
 }

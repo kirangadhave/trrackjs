@@ -26,18 +26,16 @@ Any changes made to the `core` package will cause updates to the react example f
 
 ### Advanced
 
-You need to have `pnpm` installed for local development. You can install `pnpm` using `npm i -g pnpm` or following alternate installation steps [here](https://pnpm.io/installation).
-
 To get started with development run:
 
 ```bash
-pnpm install
+npm install
 
 # Will run all examples
-pnpm run dev:all
+npm run dev:all
 
 # Will run tests for all trrack pacakges in watch mode
-pnpm run test:all:watch
+npm run test:all:watch
 ```
 
 The repository is structured as follows:
