@@ -4,5 +4,6 @@
     "dbaeumer.vscode-eslint",
     "nrwl.angular-console",
     "antfu.vite",
+    "github.vscode-github-actions"
   ]
 }
