@@ -48,7 +48,6 @@
     "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.1",
     "@nrwl/cli": "15.6.3",
-    "@nrwl/jest": "16.0.0",
     "@nrwl/js": "16.0.0",
     "@nrwl/linter": "16.0.0",
     "@nrwl/nx-cloud": "18.0.1",
@@ -111,7 +110,8 @@
     "webpack": "^5.75.0",
     "webpack-merge": "^5.8.0",
     "@nx/workspace": "16.0.0",
-    "@nx/eslint-plugin": "16.0.0"
+    "@nx/eslint-plugin": "16.0.0",
+    "@nx/jest": "16.0.0"
   },
   "config": {
     "commitizen": {
