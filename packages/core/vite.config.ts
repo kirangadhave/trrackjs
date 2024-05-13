@@ -1,33 +1,24 @@
-/// <reference types="vitest" />
+/// <reference types='vitest' />
 import { defineConfig } from 'vite';
-
-import { join } from 'path';
 import dts from 'vite-plugin-dts';
+import * as path from 'path';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
     root: __dirname,
-    cacheDir: '../../node_modules/.vite/core',
-    define: {
-        'process.env': {},
-    },
-    plugins: [
-        dts({
-            tsConfigFilePath: join(__dirname, 'tsconfig.lib.json'),
-            // Faster builds by skipping tests. Set this to false to enable type checking.
-            skipDiagnostics: true,
-        }),
+    cacheDir: '../../node_modules/.vite/packages/core',
 
+    plugins: [
         nxViteTsPaths(),
+        dts({
+            entryRoot: 'src',
+            tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
+        }),
     ],
 
     // Uncomment this if you are using workers.
     // worker: {
-    //  plugins: [
-    //    viteTsConfigPaths({
-    //      root: '../../',
-    //    }),
-    //  ],
+    //  plugins: [ nxViteTsPaths() ],
     // },
 
     // Configuration for building your library.
@@ -35,12 +26,12 @@ export default defineConfig({
     build: {
         outDir: '../../dist/packages/core',
         reportCompressedSize: true,
-        commonjsOptions: { transformMixedEsModules: true },
-        sourcemap: true,
+        commonjsOptions: {
+            transformMixedEsModules: true,
+        },
         lib: {
             // Could also be a dictionary or array of multiple entry points.
             entry: 'src/index.ts',
-            fileName: 'index',
 
             // UMD name
             name: 'Trrack',
@@ -50,26 +41,21 @@ export default defineConfig({
         },
         rollupOptions: {
             // External packages that should not be bundled into your library.
-            external: ['@reduxjs/toolkit'],
-            output: {
-                globals: {
-                    '@reduxjs/toolkit': 'RTK',
-                },
-            },
+            external: [],
         },
     },
-
     test: {
+        globals: true,
+        cache: {
+            dir: '../../node_modules/.vitest/packages/core',
+        },
+        environment: 'jsdom',
+        include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+
         reporters: ['default'],
         coverage: {
             reportsDirectory: '../../coverage/packages/core',
             provider: 'v8',
         },
-        globals: true,
-        cache: {
-            dir: '../../node_modules/.vitest',
-        },
-        environment: 'jsdom',
-        include: ['tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     },
 });

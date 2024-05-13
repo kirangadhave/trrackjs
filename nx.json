@@ -85,6 +85,11 @@
           "codeCoverage": true
         }
       }
+    },
+    "@nx/vite:build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "nxCloudAccessToken": "MTVhOGI4MDItZWYwYi00ODJiLTkxY2UtYzFkZTY2NjA2NWIyfHJlYWQtd3JpdGU=",
