@@ -1,4 +1,9 @@
 {
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": true
+    }
+  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -6,11 +11,6 @@
         "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "MTVhOGI4MDItZWYwYi00ODJiLTkxY2UtYzFkZTY2NjA2NWIyfHJlYWQtd3JpdGU="
       }
-    }
-  },
-  "pluginsConfig": {
-    "@nx/js": {
-      "analyzeSourceFiles": true
     }
   },
   "extends": "nx/presets/npm.json",
