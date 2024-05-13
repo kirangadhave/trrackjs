@@ -106,11 +106,11 @@
     "@nx/workspace": "17.0.0",
     "@nx/eslint-plugin": "17.0.0",
     "@nx/jest": "17.0.0",
-    "@nx/linter": "17.0.0",
     "@nx/js": "17.0.0",
     "@nx/react": "17.0.0",
     "@nx/vite": "17.0.0",
-    "@nx/web": "17.0.0"
+    "@nx/web": "17.0.0",
+    "@nx/eslint": "17.0.0"
   },
   "config": {
     "commitizen": {
