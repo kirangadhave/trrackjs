@@ -17,7 +17,6 @@
   "dependencies": {
     "@mantine/core": "^4.2.12",
     "@mantine/hooks": "^4.2.12",
-    "@nx/next": "17.0.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@swc/helpers": "0.5.11",
     "autoprefixer": "^10.4.13",
@@ -110,7 +109,8 @@
     "vite-tsconfig-paths": "4.3.2",
     "vitest": "0.31.4",
     "webpack": "^5.75.0",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.8.0",
+    "@nx/next": "17.0.0"
   },
   "config": {
     "commitizen": {
