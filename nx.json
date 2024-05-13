@@ -27,13 +27,13 @@
     "packageManager": "pnpm"
   },
   "generators": {
-    "@nrwl/web:application": {
+    "@nx/web:application": {
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "none"
     },
-    "@nrwl/web:library": {
+    "@nx/web:library": {
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest"
