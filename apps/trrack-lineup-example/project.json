@@ -60,8 +60,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/trrack-lineup-example"],
       "options": {
-        "jestConfig": "apps/trrack-lineup-example/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/trrack-lineup-example/jest.config.ts"
       }
     }
   }

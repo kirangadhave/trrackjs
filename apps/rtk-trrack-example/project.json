@@ -73,8 +73,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/rtk-trrack-example"],
       "options": {
-        "jestConfig": "apps/rtk-trrack-example/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/rtk-trrack-example/jest.config.ts"
       }
     }
   },
