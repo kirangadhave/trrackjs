@@ -6,7 +6,7 @@
     "implicitDependencies": ["core"],
     "targets": {
         "build": {
-            "executor": "@nrwl/vite:build",
+            "executor": "@nx/vite:build",
             "outputs": ["{options.outputPath}"],
             "defaultConfiguration": "production",
             "options": {
@@ -37,7 +37,7 @@
             "dependsOn": ["build"]
         },
         "test": {
-            "executor": "@nrwl/vite:test",
+            "executor": "@nx/vite:test",
             "outputs": ["{workspaceRoot}/coverage/packages/redux"],
             "options": {
                 "passWithNoTests": true,
