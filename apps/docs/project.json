@@ -6,11 +6,10 @@
   "targets": {
     "build": {
       "executor": "nx:run-commands",
-      "outputs": ["{options.outputPath}"],
+      "outputs": ["{workspaceRoot}/dist/apps/docs"],
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/docs",
-        "outputPath": "dist/apps/docs",
         "command": "npx next build",
         "cwd": "apps/docs"
       },
