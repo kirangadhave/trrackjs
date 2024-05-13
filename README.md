@@ -9,29 +9,35 @@ This branch implements action based provenance tracking.
 [![npm downloads](https://img.shields.io/npm/dt/@trrack/core?style=plastic)](https://www.npmjs.com/package/@trrack/core)
 [![Github Action](https://img.shields.io/github/actions/workflow/status/trrack/trrackjs/release.yml?branch=main)](https://github.com/Trrack/trrackjs/actions/workflows/release.yml?query=branch%3Amain)
 
-
 ## Development
 
 Clone the repository and switch to `trrack-action` branch.
 This project was generated using [Nx](https://nx.dev). Please refer to [Nx](https://nx.dev) for more any questions about monorepo setup.
 
 ### Basic
+
 Serve the react example by running the following:
 
 ```bash
 npx nx react-trrack-example:serve
 ```
+
 Any changes made to the `core` package will cause updates to the react example for easier testing
 
 ### Advanced
+
+You need to have `pnpm` installed for local development. You can install `pnpm` using `npm i -g pnpm` or following alternate installation steps [here](https://pnpm.io/installation).
+
 To get started with development run:
 
 ```bash
-yarn install # Trrack can also work with npm, but it uses workspaces feature which we have only tested with yarn.
+pnpm install
 
-yarn dev:all # Will run all examples
+# Will run all examples
+pnpm run dev:all
 
-yarn test:all:watch # Will run tests for all trrack pacakges in watch mode
+# Will run tests for all trrack pacakges in watch mode
+pnpm run test:all:watch
 ```
 
 The repository is structured as follows:

@@ -5,7 +5,7 @@
   "scripts": {
     "dev:all": "nx run-many --target=serve --projects=react-trrack-example,rtk-trrack-example --output-style=stream",
     "test:all:watch": "nx run-many --target=test --projects=core,redux --watch",
-    "prepare": "husky install",
+    "prepare": "husky install || true",
     "commit": "npx git-cz",
     "nx-create-migrations": "nx migrate latest",
     "nx-migrate": "nx migrate --run-migrations --create-commits",
@@ -113,10 +113,6 @@
     "webpack": "^5.75.0",
     "webpack-merge": "^5.8.0"
   },
-  "workspaces": [
-    "packages/**",
-    "apps/**"
-  ],
   "config": {
     "commitizen": {
       "path": "git-cz"
