@@ -1,4 +1,4 @@
-import { initEventManager } from '../src/event/index';
+import { initEventManager } from '../event/index';
 describe('Event Manager', () => {
     it('should create an instance of EventManager', () => {
         const eventManager = initEventManager();

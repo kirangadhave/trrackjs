@@ -15,6 +15,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "types": ["vitest/globals"],
     "paths": {
       "@trrack/core": ["./packages/core/src/index.ts"]
     }

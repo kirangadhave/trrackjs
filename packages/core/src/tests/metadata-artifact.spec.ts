@@ -1,5 +1,5 @@
-import { initializeTrrack } from '../src/provenance/trrack';
-import { Registry } from '../src/registry';
+import { initializeTrrack } from '../provenance/trrack';
+import { Registry } from '../registry';
 function setup() {
     const registry = Registry.create();
 

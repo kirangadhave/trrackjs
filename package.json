@@ -113,5 +113,8 @@
     "commitizen": {
       "path": "git-cz"
     }
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
