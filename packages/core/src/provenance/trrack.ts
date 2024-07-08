@@ -3,7 +3,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { applyPatch, compare, deepClone, Operation } from 'fast-json-patch';
 import { RecordActionArgs, Trrack } from './types';
 
-import { initEventManager } from '../event';
+import { initEventManager } from '../event-manager/initialize-event-manager';
 import {
     createStateNode,
     CurrentChangeHandler,
@@ -15,7 +15,7 @@ import {
     ProvenanceNode,
     StateLike,
     StateNode,
-    UnsubscribeCurrentChangeListener,
+    UnsubscribeListener,
 } from '../graph';
 import { ProvenanceGraph } from '../graph/graph-slice';
 import {
@@ -361,7 +361,7 @@ export function initializeTrrack<State = any, Event extends string = string>({
         currentChange(
             listener: CurrentChangeHandler,
             skipOnNew = false
-        ): UnsubscribeCurrentChangeListener {
+        ): UnsubscribeListener {
             return graph.currentChange(listener, {
                 skipOnNew,
             });

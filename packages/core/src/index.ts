@@ -1,5 +1,5 @@
 export { createAction } from '@reduxjs/toolkit';
-export * from './event';
+export * from './event-manager/initialize-event-manager';
 export * from './graph';
 export * from './provenance';
 export * from './registry';

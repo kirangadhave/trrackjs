@@ -8,7 +8,7 @@ import {
     ProvenanceNode,
     RootNode,
     SideEffects,
-    UnsubscribeCurrentChangeListener,
+    UnsubscribeListener,
 } from '../graph';
 import { ProvenanceGraph } from '../graph/graph-slice';
 import { Registry } from '../registry';
@@ -70,7 +70,7 @@ export interface Trrack<State, Event extends string> {
     currentChange(
         listener: CurrentChangeHandler,
         skipOnNew?: boolean
-    ): UnsubscribeCurrentChangeListener;
+    ): UnsubscribeListener;
     done(): void;
     tree(): any;
     on(event: TrrackEvents, listener: (args?: any) => void): void;

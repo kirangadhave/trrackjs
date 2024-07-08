@@ -1,4 +1,3 @@
-/// <reference types='vitest' />
 import { defineConfig, mergeConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
@@ -7,7 +6,9 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 export default defineConfig({
     root: __dirname,
     cacheDir: '../../node_modules/.vite/packages/core',
-
+    define: {
+        'process.env': {},
+    },
     plugins: [
         nxViteTsPaths(),
         dts({
@@ -46,14 +47,15 @@ export default defineConfig({
     },
     test: {
         globals: true,
-        environment: 'jsdom',
+        environment: 'node',
         reporters: ['default'],
-        exclude: ['apps/**/*'],
-        include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+        include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
         coverage: {
             enabled: true,
+            all: false,
             reportsDirectory: '../../coverage/packages/core',
             provider: 'v8',
+            include: ['src/**/*.ts'],
         },
     },
 });

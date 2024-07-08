@@ -3,6 +3,7 @@
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "packages/redux/src",
     "projectType": "library",
+    "tags": [],
     "implicitDependencies": ["core"],
     "targets": {
         "build": {
@@ -48,6 +49,5 @@
             "executor": "@nx/eslint:lint",
             "outputs": ["{options.outputFile}"]
         }
-    },
-    "tags": []
+    }
 }
