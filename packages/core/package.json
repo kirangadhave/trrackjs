@@ -1,0 +1,51 @@
+{
+  "name": "@trrack/core",
+  "version": "2.0.0-alpha.0",
+  "description": "Reproducible provenance tracking for web applications",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./global": "./dist/trrack.global.js"
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Trrack/trrackjs.git",
+    "directory": "packages/core"
+  },
+  "keywords": ["provenance", "undo", "redo", "state-management", "history", "time-travel"],
+  "author": "Trrack Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Trrack/trrackjs/issues"
+  },
+  "homepage": "https://trrack.github.io/trrackjs",
+  "dependencies": {
+    "immer": "^10.1.1"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

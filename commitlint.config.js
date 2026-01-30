@@ -1,3 +1,6 @@
-module.exports = {
-  extends: ['@commitlint/config-conventional', '@commitlint/config-nx-scopes'],
+export default {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'scope-enum': [2, 'always', ['core', 'redux', 'docs', 'deps', 'release']],
+  },
 };
