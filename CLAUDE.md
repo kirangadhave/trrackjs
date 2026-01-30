@@ -17,6 +17,7 @@ trrackjs/
 ├── packages/
 │   └── core/              # @trrack/core - Main provenance library (v2, fresh start)
 ├── _reference/            # Archived v1 code for API reference
+│   ├── .github/           # Old GitHub workflows (for reference when setting up CI)
 │   ├── apps/              # Old example apps
 │   ├── packages/          # Old package implementations
 │   └── tools/             # Old Nx tools
@@ -173,3 +174,22 @@ This is a **major version overhaul** (clean slate, no backwards compatibility):
 - Testing conventions: Vitest with `*.test.ts` or `*.spec.ts` in `src/`
 - Commit conventions: Conventional commits (`feat:`, `fix:`, `chore:`, etc.)
 - Scopes: `core`, `redux`, `docs`, `deps`, `release`
+
+## CI/CD (TODO)
+
+GitHub workflows are archived in `_reference/.github/workflows/`. When ready to set up CI:
+
+**Workflows to create:**
+1. **build_test.yml** - Run on PRs and non-release branches
+   - Build all packages
+   - Run tests
+   - Lint check
+
+2. **build_test_release.yml** - Run on main/release branches
+   - Build, test, then semantic-release
+   - Requires secrets: `NPM_TOKEN`, `GITHUB_TOKEN`
+
+**Key differences from v1:**
+- Use pnpm instead of yarn
+- Use `pnpm build` and `pnpm test` instead of nx affected
+- No nx-set-shas needed (simpler monorepo)
