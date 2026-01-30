@@ -16,6 +16,8 @@ Trrack aims to be a lightweight, framework-agnostic provenance tracking solution
 trrackjs/
 ├── packages/
 │   └── core/              # @trrack/core - Main provenance library (v2, fresh start)
+├── docs/
+│   └── design.md          # v2 architecture & design decisions
 ├── _reference/            # Archived v1 code for API reference
 │   ├── .github/           # Old GitHub workflows (for reference when setting up CI)
 │   ├── apps/              # Old example apps
@@ -156,8 +158,8 @@ This is a **major version overhaul** (clean slate, no backwards compatibility):
 - [x] **Modernize tooling** - TypeScript 5.x, Vitest, Biome, lefthook
 - [x] **Package validation** - publint + attw for validating exports and types
 - [ ] **Release management** - Set up changesets or semantic-release for versioning/changelogs
-- [ ] **API redesign** - Improve ergonomics and TypeScript inference
-- [ ] **Enhancer pattern** - Composable store wrappers for extensibility
+- [x] **Enhancer pattern design** - Builder API with type + runtime dependency checks (see `docs/design.md`)
+- [ ] **API implementation** - Implement core + enhancers with TypeScript inference
 - [ ] **Performance** - Optimize for large graphs and memory efficiency
 - [ ] **New features** - Collaboration, persistence, visualization hooks
 
@@ -170,12 +172,14 @@ This is a **major version overhaul** (clean slate, no backwards compatibility):
 - **Keep it simple** - Avoid over-engineering; start minimal, add complexity when needed
 - **Test changes** - Run `pnpm test` after modifications
 - **Reference v1** - Check `_reference/packages/core/` for existing patterns and API design
-- **Update docs** - Keep README.md and CLAUDE.md updated when tooling/structure changes
+- **Reference design doc** - Check `docs/design.md` for v2 architecture decisions
+- **Update docs** - Keep README.md, CLAUDE.md, and docs/design.md updated when things change
 
 ### Patterns in Use
 
+- **Enhancer pattern** with builder API for extensibility (see `docs/design.md`)
 - **Immer** for immutable state updates
-- **Pub/sub** for event handling (to be implemented)
+- **Pub/sub** for event handling (via `withSubscription()` enhancer)
 
 ## Notes
 
