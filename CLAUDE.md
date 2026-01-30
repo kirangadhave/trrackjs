@@ -26,6 +26,34 @@ trrackjs/
 └── ...config files
 ```
 
+## Key Files
+
+### Documentation
+| File | Purpose |
+|------|---------|
+| @docs/design.md | v2 architecture decisions, type definitions, enhancer pattern |
+| @CLAUDE.md | Project overview, commands, conventions (this file) |
+| @README.md | Public-facing documentation |
+
+### Source (packages/core/)
+| File | Purpose |
+|------|---------|
+| @packages/core/src/index.ts | Main entry point, public exports |
+| @packages/core/package.json | Package config, dependencies, exports |
+| @packages/core/tsconfig.json | TypeScript config for core package |
+| @packages/core/tsup.config.ts | Build config (ESM, CJS, IIFE outputs) |
+
+### Root Config
+| File | Purpose |
+|------|---------|
+| @package.json | Workspace scripts, dev dependencies |
+| @tsconfig.json | Base TypeScript config (extended by packages) |
+| @vitest.config.ts | Test runner config |
+| @biome.json | Linting & formatting rules |
+| @lefthook.yml | Git hooks (pre-commit, commit-msg) |
+| @commitlint.config.js | Conventional commit enforcement |
+| @pnpm-workspace.yaml | Monorepo workspace definition |
+
 ## Tooling
 
 <!-- Keep this section updated when tooling changes -->
