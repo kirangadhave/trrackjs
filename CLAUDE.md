@@ -15,13 +15,62 @@ Trrack aims to be a lightweight, framework-agnostic provenance tracking solution
 ```
 trrackjs/
 ├── packages/
-│   ├── core/          # Core provenance tracking library (@trrack/core)
-│   └── redux/         # Redux Toolkit integration (@trrack/redux)
-├── apps/
-│   ├── react-trrack-example/    # React example
-│   ├── rtk-trrack-example/      # Redux Toolkit example
-│   └── trrack-lineup-example/   # LineUp visualization example
+│   └── core/              # @trrack/core - Main provenance library (v2, fresh start)
+├── _reference/            # Archived v1 code for API reference
+│   ├── apps/              # Old example apps
+│   ├── packages/          # Old package implementations
+│   └── tools/             # Old Nx tools
+└── ...config files
 ```
+
+## Tooling
+
+<!-- Keep this section updated when tooling changes -->
+
+| Tool | Purpose | Config |
+|------|---------|--------|
+| [pnpm](https://pnpm.io/) | Package manager & workspaces | `pnpm-workspace.yaml` |
+| [TypeScript](https://www.typescriptlang.org/) 5.x | Type checking | `tsconfig.json` |
+| [tsup](https://tsup.egoist.dev/) | Build & bundle (ESM, CJS, IIFE) | `packages/*/tsup.config.ts` |
+| [Vitest](https://vitest.dev/) | Testing | `vitest.config.ts` |
+| [Biome](https://biomejs.dev/) | Linting & formatting | `biome.json` |
+| [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks) | Git hooks | `package.json` |
+| [commitlint](https://commitlint.js.org/) | Commit message linting | `commitlint.config.js` |
+
+## Commands
+
+```bash
+# Install dependencies
+pnpm install
+
+# Build
+pnpm build                 # Build all packages
+pnpm build:core            # Build core package only
+
+# Testing
+pnpm test                  # Run tests
+pnpm test:watch            # Run tests in watch mode
+
+# Code Quality
+pnpm lint                  # Check linting
+pnpm lint:fix              # Fix lint issues
+pnpm format                # Format code
+pnpm typecheck             # Type check all packages
+
+# Clean
+pnpm clean                 # Remove node_modules and dist
+```
+
+## Build Outputs
+
+The core package produces multiple formats via tsup:
+
+| Format | File | Use Case |
+|--------|------|----------|
+| ESM | `dist/index.js` | Modern bundlers, Node.js |
+| CJS | `dist/index.cjs` | Legacy Node.js, older bundlers |
+| IIFE | `dist/trrack.global.js` | `<script>` tag (exposes `window.Trrack`) |
+| Types | `dist/index.d.ts` | TypeScript support |
 
 ## Core Concepts
 
@@ -33,7 +82,7 @@ A DAG where each node represents application state after an action. The graph tr
 ### State Storage
 Intelligent switching between storage modes:
 - **Checkpoint**: Full state snapshot (used when >50% of state changes)
-- **Patches**: Incremental JSON patches referencing a checkpoint (using fast-json-patch)
+- **Patches**: Incremental JSON patches referencing a checkpoint
 
 ### Actions & Registry
 Actions are registered with metadata before use:
@@ -48,48 +97,12 @@ Nodes can have:
 - **Artifacts**: Arbitrary data attachments
 - **Metadata**: Typed key-value pairs (annotations, bookmarks, custom)
 
-## Commands
+## v1 API Reference (in `_reference/`)
 
-Current commands (may change during refactor):
+The old implementation is preserved in `_reference/packages/core/` for API design reference:
 
-```bash
-# Install dependencies
-yarn install
-
-# Development
-yarn dev:all                    # Run all example apps
-npx nx serve react-trrack-example  # Run single example
-
-# Testing
-yarn test:all:watch            # Watch mode for all packages
-npx nx test core               # Test core package
-npx nx test redux              # Test redux package
-
-# Building
-npx nx build core              # Build core package
-npx nx build redux             # Build redux package
-
-# Linting
-npx nx lint core
-npx nx lint redux
-
-# Release (CI)
-yarn release                   # Semantic release for affected packages
-```
-
-## Current Architecture (Reference)
-
-### Core Package (`packages/core`)
-
-Key modules:
-- `src/provenance/trrack.ts` - Main Trrack class and initialization
-- `src/graph/provenance-graph.ts` - Redux-backed graph store
-- `src/graph/components/node.ts` - Node type definitions
-- `src/registry/` - Action registration system
-- `src/event/` - Pub/sub event system
-
-Public API:
 ```typescript
+// v1 Public API (for reference during v2 design)
 interface Trrack<State, Event> {
   // State
   getState(node?): State
@@ -122,22 +135,22 @@ interface Trrack<State, Event> {
 }
 ```
 
-### Redux Package (`packages/redux`)
+Key v1 files (in `_reference/packages/core/src/`):
+- `provenance/trrack.ts` - Main Trrack class and initialization
+- `provenance/types.ts` - Core type definitions
+- `registry/reg.ts` - Action registration
+- `graph/provenance-graph.ts` - Graph state management
 
-Wraps Redux Toolkit to automatically track actions:
-- `TrrackableSliceCreator` - Enhanced `createSlice` with provenance
-- `TrrackableStoreCreator` - Store factory with built-in tracking
-
-## Refactor Goals
+## v2 Refactor Status
 
 This is a **major version overhaul** (clean slate, no backwards compatibility):
 
-1. **Simplify build system** - Consider removing Nx for simpler tooling
-2. **Modernize dependencies** - Update all deps to latest versions
-3. **API redesign** - Improve ergonomics and TypeScript inference
-4. **Enhancer pattern** - Composable store wrappers for extensibility
-5. **Performance** - Optimize for large graphs and memory efficiency
-6. **New features** - Collaboration, persistence, visualization hooks
+- [x] **Simplify build system** - Removed Nx, using pnpm + tsup
+- [x] **Modernize tooling** - TypeScript 5.x, Vitest, Biome
+- [ ] **API redesign** - Improve ergonomics and TypeScript inference
+- [ ] **Enhancer pattern** - Composable store wrappers for extensibility
+- [ ] **Performance** - Optimize for large graphs and memory efficiency
+- [ ] **New features** - Collaboration, persistence, visualization hooks
 
 ## Working with This Codebase
 
@@ -146,26 +159,17 @@ This is a **major version overhaul** (clean slate, no backwards compatibility):
 - **Ask before major decisions** - Architecture, API design, dependency choices
 - **Explore thoroughly** - Use the codebase exploration tools to understand context before changes
 - **Keep it simple** - Avoid over-engineering; start minimal, add complexity when needed
-- **Test changes** - Run tests after modifications
-- **Preserve intent** - During refactors, understand the "why" behind existing code
-
-### Key Files to Understand
-
-- `packages/core/src/provenance/trrack.ts` - Heart of the library
-- `packages/core/src/provenance/types.ts` - Core type definitions
-- `packages/core/src/registry/registry.ts` - Action registration
-- `packages/core/src/graph/provenance-graph.ts` - Graph state management
+- **Test changes** - Run `pnpm test` after modifications
+- **Reference v1** - Check `_reference/packages/core/` for existing patterns and API design
+- **Update docs** - Keep README.md and CLAUDE.md updated when tooling/structure changes
 
 ### Patterns in Use
 
-- **Registry pattern** for action management
 - **Immer** for immutable state updates
-- **Redux Toolkit** internally for graph state
-- **JSON Patch (RFC 6902)** for incremental state storage
-- **Pub/sub** for event handling
+- **Pub/sub** for event handling (to be implemented)
 
 ## Notes
 
-- Testing conventions: TBD (will be established during refactor)
-- Naming conventions: TBD (will be established during refactor)
-- Enhancer pattern implementation: TBD (design in progress)
+- Testing conventions: Vitest with `*.test.ts` or `*.spec.ts` in `src/`
+- Commit conventions: Conventional commits (`feat:`, `fix:`, `chore:`, etc.)
+- Scopes: `core`, `redux`, `docs`, `deps`, `release`

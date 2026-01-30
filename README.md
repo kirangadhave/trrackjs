@@ -1,51 +1,120 @@
 # Trrack
 
-Trrack stands for **r**eproducible **track**ing. Originally Trrack is a web-based provenance tracking library that can track application state in directed provenance graph.
+Trrack (**r**eproducible **track**ing) is a TypeScript library for action-based provenance tracking in web applications. It maintains a directed acyclic graph (DAG) of application states, enabling undo/redo, time-travel debugging, and full audit trails of user interactions.
 
-This branch implements action based provenance tracking.
+[![license](https://img.shields.io/github/license/trrack/trrackjs?style=flat)](https://github.com/Trrack/trrackjs/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@trrack/core?style=flat)](https://www.npmjs.com/package/@trrack/core)
+[![npm downloads](https://img.shields.io/npm/dt/@trrack/core?style=flat)](https://www.npmjs.com/package/@trrack/core)
 
-[![license](https://img.shields.io/github/license/trrack/trrackjs?style=plastic)](https://github.com/Trrack/trrackjs/blob/main/LICENSE)
-[![npm latest version](https://img.shields.io/npm/v/@trrack/core?style=plastic)](https://www.npmjs.com/package/@trrack/core)
-[![npm downloads](https://img.shields.io/npm/dt/@trrack/core?style=plastic)](https://www.npmjs.com/package/@trrack/core)
-[![Github Action](https://img.shields.io/github/actions/workflow/status/trrack/trrackjs/release.yml?branch=main)](https://github.com/Trrack/trrackjs/actions/workflows/release.yml?query=branch%3Amain)
+## Installation
 
+```bash
+# npm
+npm install @trrack/core
+
+# pnpm
+pnpm add @trrack/core
+
+# yarn
+yarn add @trrack/core
+```
+
+### Script Tag
+
+For browser usage without a bundler:
+
+```html
+<script src="https://unpkg.com/@trrack/core/dist/trrack.global.js"></script>
+<script>
+  const trrack = Trrack.createTrrack({ initialState: { count: 0 } });
+</script>
+```
+
+## Quick Start
+
+```typescript
+import { createTrrack } from '@trrack/core';
+
+const trrack = createTrrack({
+  initialState: { count: 0 },
+});
+```
 
 ## Development
 
-Clone the repository and switch to `trrack-action` branch.
-This project was generated using [Nx](https://nx.dev). Please refer to [Nx](https://nx.dev) for more any questions about monorepo setup.
+### Prerequisites
 
-### Basic
-Serve the react example by running the following:
+- Node.js >= 20
+- pnpm >= 9
 
-```bash
-npx nx react-trrack-example:serve
-```
-Any changes made to the `core` package will cause updates to the react example for easier testing
-
-### Advanced
-To get started with development run:
+### Setup
 
 ```bash
-yarn install # Trrack can also work with npm, but it uses workspaces feature which we have only tested with yarn.
+# Clone the repository
+git clone https://github.com/Trrack/trrackjs.git
+cd trrackjs
 
-yarn dev:all # Will run all examples
+# Install dependencies
+pnpm install
 
-yarn test:all:watch # Will run tests for all trrack pacakges in watch mode
+# Build
+pnpm build
+
+# Run tests
+pnpm test
+
+# Lint
+pnpm lint
 ```
 
-The repository is structured as follows:
+### Project Structure
 
-```bash
-trrack-monorepo
-|
-|--- pacakges # trrack library is located in this folder
-    |--- core # Core action-based tracking library
-    |--- redux # Redux toolkit wrapper for core
-|
-|--- apps # Trrack examples are located in this folder
-    |--- react-trrack-example
-    |--- rtk-trrack-example
+```
+trrackjs/
+├── packages/
+│   └── core/           # @trrack/core - Main provenance library
+├── _reference/         # Archived v1 code for reference
+└── ...config files
 ```
 
-Following the standards for Nx monorepos please install any dependency for the applications directly to root workspace. This ensures all the applications use same versions of any dependency. For the packages, install the dependency to appropriate package.
+### Scripts
+
+| Command | Description |
+|---------|-------------|
+| `pnpm build` | Build all packages |
+| `pnpm build:core` | Build core package |
+| `pnpm test` | Run tests |
+| `pnpm test:watch` | Run tests in watch mode |
+| `pnpm lint` | Lint code |
+| `pnpm lint:fix` | Lint and auto-fix |
+| `pnpm format` | Format code |
+| `pnpm typecheck` | Type check |
+
+### Tooling
+
+<!-- Keep this section updated when tooling changes -->
+
+| Tool | Purpose | Config |
+|------|---------|--------|
+| [pnpm](https://pnpm.io/) | Package manager & workspaces | `pnpm-workspace.yaml` |
+| [TypeScript](https://www.typescriptlang.org/) 5.x | Type checking | `tsconfig.json` |
+| [tsup](https://tsup.egoist.dev/) | Build & bundle (ESM, CJS, IIFE) | `packages/*/tsup.config.ts` |
+| [Vitest](https://vitest.dev/) | Testing | `vitest.config.ts` |
+| [Biome](https://biomejs.dev/) | Linting & formatting | `biome.json` |
+| [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks) | Git hooks | `package.json` |
+| [commitlint](https://commitlint.js.org/) | Commit message linting | `commitlint.config.js` |
+
+### Build Outputs
+
+The core package produces multiple formats:
+
+| Format | File | Use Case |
+|--------|------|----------|
+| ESM | `dist/index.js` | Modern bundlers, Node.js |
+| CJS | `dist/index.cjs` | Legacy Node.js, older bundlers |
+| IIFE | `dist/trrack.global.js` | `<script>` tag (exposes `window.Trrack`) |
+| Types | `dist/index.d.ts` | TypeScript support |
+
+## License
+
+[MIT](LICENSE)
