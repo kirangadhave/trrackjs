@@ -35,8 +35,10 @@ trrackjs/
 | [tsup](https://tsup.egoist.dev/) | Build & bundle (ESM, CJS, IIFE) | `packages/*/tsup.config.ts` |
 | [Vitest](https://vitest.dev/) | Testing | `vitest.config.ts` |
 | [Biome](https://biomejs.dev/) | Linting & formatting | `biome.json` |
-| [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks) | Git hooks | `package.json` |
+| [lefthook](https://lefthook.dev/) | Git hooks | `lefthook.yml` |
 | [commitlint](https://commitlint.js.org/) | Commit message linting | `commitlint.config.js` |
+| [publint](https://publint.dev/) | Package.json exports validation | - |
+| [attw](https://arethetypeswrong.github.io/) | TypeScript types validation | - |
 
 ## Commands
 
@@ -60,6 +62,10 @@ pnpm typecheck             # Type check all packages
 
 # Clean
 pnpm clean                 # Remove node_modules and dist
+
+# Package Validation (run after build)
+pnpm publint               # Validate package.json exports
+pnpm attw                  # Validate TypeScript types work correctly
 ```
 
 ## Build Outputs
@@ -147,7 +153,9 @@ Key v1 files (in `_reference/packages/core/src/`):
 This is a **major version overhaul** (clean slate, no backwards compatibility):
 
 - [x] **Simplify build system** - Removed Nx, using pnpm + tsup
-- [x] **Modernize tooling** - TypeScript 5.x, Vitest, Biome
+- [x] **Modernize tooling** - TypeScript 5.x, Vitest, Biome, lefthook
+- [x] **Package validation** - publint + attw for validating exports and types
+- [ ] **Release management** - Set up changesets or semantic-release for versioning/changelogs
 - [ ] **API redesign** - Improve ergonomics and TypeScript inference
 - [ ] **Enhancer pattern** - Composable store wrappers for extensibility
 - [ ] **Performance** - Optimize for large graphs and memory efficiency

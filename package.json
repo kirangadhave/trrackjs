@@ -17,23 +17,19 @@
     "format": "biome format --write .",
     "typecheck": "pnpm -r run typecheck",
     "clean": "rm -rf node_modules packages/*/dist packages/*/node_modules",
-    "prepare": "simple-git-hooks"
+    "prepare": "lefthook install",
+    "publint": "pnpm -r exec publint",
+    "attw": "pnpm -r exec attw --pack"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
     "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@vitest/coverage-v8": "^2.1.8",
-    "lint-staged": "^15.3.0",
-    "simple-git-hooks": "^2.11.1",
+    "lefthook": "^2.0.16",
+    "publint": "^0.3.17",
     "typescript": "^5.7.3",
     "vitest": "^2.1.8"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged",
-    "commit-msg": "pnpm commitlint --edit $1"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx,json}": ["biome check --write --no-errors-on-unmatched"]
   }
 }
