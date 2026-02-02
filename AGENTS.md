@@ -211,7 +211,8 @@ This is a **major version overhaul** (clean slate, no backwards compatibility):
 
 ## Notes
 
-- Testing conventions: Vitest with `*.test.ts` or `*.spec.ts` in `src/`
+- Testing conventions: Vitest with `*.test.ts` or `*.spec.ts` in `packages/*/tests/`
+- Test fixtures: Use factories and constants from `tests/fixtures/` for consistency
 - Commit conventions: Conventional commits (`feat:`, `fix:`, `chore:`, etc.)
 - Scopes: `core`, `redux`, `docs`, `deps`, `release`
 
