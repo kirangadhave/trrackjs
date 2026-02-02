@@ -119,12 +119,14 @@ interface StateNode<State> {
 
 The internal `TrrackCore` provides low-level provenance operations:
 
-- `state` - Current resolved state
-- `current` - Current node reference
-- `root` - Root node reference
+- `state()` - Current resolved state
+- `current()` - Current node reference
+- `root()` - Root node reference
 - `record(newState, event)` - Create new node
 - `setCurrent(nodeId)` - Navigate to node
 - `getState(nodeId)` - Resolve state for any node
+
+> **Note:** These are methods, not getters. This allows enhancers to use simple spread (`...trrack`) without breaking reactivity.
 
 ### Checkpoint Strategy
 
@@ -156,7 +158,7 @@ Presets available:
 
 Transparent state resolution from patches:
 
-- Users always get resolved state via `trrack.state` or `trrack.getState(id)`
+- Users always get resolved state via `trrack.state()` or `trrack.getState(id)`
 - Patches are applied automatically when reading
 - Checkpoint references ensure bounded resolution time
 
@@ -174,10 +176,13 @@ packages/core/tests/
 │   ├── index.ts      # Re-exports
 │   ├── states.ts     # Test state types & constants
 │   └── trrack.ts     # Factory functions
-├── core.test.ts
-├── checkpoint.test.ts
-├── state-resolution.test.ts
-└── types.test.ts
+├── core.test.ts           # TrrackCore tests
+├── checkpoint.test.ts     # Checkpoint logic tests
+├── state-resolution.test.ts  # Patch resolution tests
+├── types.test.ts          # Type guard tests
+├── enhancer.test.ts       # Builder and defineEnhancer tests
+├── navigation.test.ts     # Navigation enhancer tests
+└── reactivity.test.ts   # Subscription enhancer tests
 ```
 
 ### Fixtures
@@ -200,19 +205,77 @@ packages/core/tests/
 
 ---
 
-## Planned Features (Not Yet Implemented)
+## Enhancer System
 
-### Default Enhancers (always included)
-- `withNavigation()` - undo/redo/canUndo/canRedo
-- `withSubscription()` - subscribe to changes
+### Implemented
 
-### Optional Enhancers
-- `withRegistry()` - Typed action registration
-- `withMetadata()` - Artifacts, bookmarks, annotations
-- `withPersistence()` - Import/export, RFC 6902 conversion
-- `withSideEffects()` - Side-effect actions with undo
-- `withDevTools()` - Browser devtools integration
-- `withCollaboration()` - Real-time multi-user sync
+**Default Enhancers** (always included via `createTrrack`):
+
+- `reactivity()` - Subscribe to state changes
+  - `subscribe(listener)` - Simple reactivity, fires on every change
+  - `effect(selector, callback, equalityFn?, options?)` - Selector-based, fires only when selected value changes
+  - Notifies on `record()` and `setCurrent()` calls
+
+- `navigation()` - Undo/redo navigation
+  - `undo()` - Navigate to parent node (no-op if at root)
+  - `redo()` - Navigate to last child (no-op if no children)
+  - `canUndo()` - Check if undo is available
+  - `canRedo()` - Check if redo is available
+
+**Builder API:**
+```typescript
+const trrack = createTrrack({ initialState, enablePatches: false })
+  .with(customEnhancer())  // Add optional enhancers
+  .build();
+```
+
+### Enhancer Ordering
+
+Order matters for enhancers. Rule: **"Wrappers before callers"**
+
+- `reactivity()` wraps `setCurrent` and `record` to notify listeners
+- `navigation()` calls `setCurrent` via `undo()` and `redo()`
+- Therefore: `reactivity` must be applied before `navigation`
+
+This is handled automatically by `createTrrack()`.
+
+### Selector-based Effects
+
+The `effect()` method provides fine-grained reactivitys:
+
+```typescript
+import { compare } from '@trrack/core';
+
+// Only fires when user.name changes
+trrack.effect(
+  (state) => state.user.name,
+  (name) => console.log('Name:', name),
+);
+
+// With shallow equality for objects
+trrack.effect(
+  (state) => state.user,
+  (user) => render(user),
+  compare.shallow,
+);
+```
+
+**Comparison strategies** via `compare` namespace:
+- `compare.strict` - Strict equality (`===`), default
+- `compare.shallow` - Shallow comparison of object/array properties
+
+**Options:**
+- `runImmediately` - Whether to call callback immediately (default: `true`)
+
+**Implementation:** `subscribe()` is built on `effect()` internally.
+
+### Planned Enhancers
+- `registry()` - Typed action registration
+- `metadata()` - Artifacts, bookmarks, annotations
+- `persistence()` - Import/export, RFC 6902 conversion
+- `sideEffects()` - Side-effect actions with undo
+- `devTools()` - Browser devtools integration
+- `collaboration()` - Real-time multi-user sync
 
 ---
 
@@ -252,7 +315,12 @@ See `docs/design.md` for detailed rationale. Key decisions:
 | Immer patches | Already using Immer; inverse patches for undo |
 | Hybrid checkpoint logic | Bounds resolution time, configurable |
 | nanoid for IDs | Short, fast, collision-safe |
+| Methods over getters | Spread operator breaks getters; methods compose correctly |
+| Enhancer naming `x()` not `withX()` | Avoids `.with(withX())` redundancy |
+| Wrappers before callers | Subscription must wrap before navigation calls |
+| Selector-based effects | Explicit deps, works with Immer structural sharing, no proxy overhead |
+| `compare` namespace | Extensible, discoverable via autocomplete, clean API |
 
 ---
 
-*Last updated: 2025-02-01*
+*Last updated: 2025-02-02*

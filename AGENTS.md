@@ -208,7 +208,7 @@ This is a **major version overhaul** (clean slate, no backwards compatibility):
 
 - **Enhancer pattern** with builder API for extensibility (see `docs/design.md`)
 - **Immer** for immutable state updates
-- **Pub/sub** for event handling (via `withSubscription()` enhancer)
+- **Reactivity** for state observation (via `reactivity()` enhancer)
 
 ## Notes
 
