@@ -19,14 +19,15 @@ pnpm add @trrack/core
 yarn add @trrack/core
 ```
 
-### Script Tag
+### Browser (ESM)
 
 For browser usage without a bundler:
 
 ```html
-<script src="https://unpkg.com/@trrack/core/dist/trrack.global.js"></script>
-<script>
-  const trrack = Trrack.createTrrack({ initialState: { count: 0 } });
+<script type="module">
+  import { createTrrack } from 'https://esm.sh/@trrack/core';
+
+  const trrack = createTrrack({ initialState: { count: 0 } });
 </script>
 ```
 
@@ -98,7 +99,7 @@ trrackjs/
 |------|---------|--------|
 | [pnpm](https://pnpm.io/) | Package manager & workspaces | `pnpm-workspace.yaml` |
 | [TypeScript](https://www.typescriptlang.org/) 5.x | Type checking | `tsconfig.json` |
-| [tsup](https://tsup.egoist.dev/) | Build & bundle (ESM, CJS, IIFE) | `packages/*/tsup.config.ts` |
+| [tsup](https://tsup.egoist.dev/) | Build & bundle (ESM, CJS) | `packages/*/tsup.config.ts` |
 | [Vitest](https://vitest.dev/) | Testing | `vitest.config.ts` |
 | [Biome](https://biomejs.dev/) | Linting & formatting | `biome.json` |
 | [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks) | Git hooks | `package.json` |
@@ -106,13 +107,10 @@ trrackjs/
 
 ### Build Outputs
 
-The core package produces multiple formats:
-
 | Format | File | Use Case |
 |--------|------|----------|
-| ESM | `dist/index.js` | Modern bundlers, Node.js |
+| ESM | `dist/index.js` | Modern bundlers, Node.js, browsers |
 | CJS | `dist/index.cjs` | Legacy Node.js, older bundlers |
-| IIFE | `dist/trrack.global.js` | `<script>` tag (exposes `window.Trrack`) |
 | Types | `dist/index.d.ts` | TypeScript support |
 
 ## License

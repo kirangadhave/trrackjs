@@ -42,7 +42,7 @@ trrackjs/
 | @packages/core/src/index.ts | Main entry point, public exports |
 | @packages/core/package.json | Package config, dependencies, exports |
 | @packages/core/tsconfig.json | TypeScript config for core package |
-| @packages/core/tsup.config.ts | Build config (ESM, CJS, IIFE outputs) |
+| @packages/core/tsup.config.ts | Build config (ESM, CJS) |
 
 ### Root Config
 | File | Purpose |
@@ -63,7 +63,7 @@ trrackjs/
 |------|---------|--------|
 | [pnpm](https://pnpm.io/) | Package manager & workspaces | `pnpm-workspace.yaml` |
 | [TypeScript](https://www.typescriptlang.org/) 5.x | Type checking | `tsconfig.json` |
-| [tsup](https://tsup.egoist.dev/) | Build & bundle (ESM, CJS, IIFE) | `packages/*/tsup.config.ts` |
+| [tsup](https://tsup.egoist.dev/) | Build & bundle (ESM, CJS) | `packages/*/tsup.config.ts` |
 | [Vitest](https://vitest.dev/) | Testing | `vitest.config.ts` |
 | [Biome](https://biomejs.dev/) | Linting & formatting | `biome.json` |
 | [lefthook](https://lefthook.dev/) | Git hooks | `lefthook.yml` |
@@ -105,9 +105,8 @@ The core package produces multiple formats via tsup:
 
 | Format | File | Use Case |
 |--------|------|----------|
-| ESM | `dist/index.js` | Modern bundlers, Node.js |
+| ESM | `dist/index.js` | Modern bundlers, Node.js, browsers (via esm.sh) |
 | CJS | `dist/index.cjs` | Legacy Node.js, older bundlers |
-| IIFE | `dist/trrack.global.js` | `<script>` tag (exposes `window.Trrack`) |
 | Types | `dist/index.d.ts` | TypeScript support |
 
 ## Core Concepts
