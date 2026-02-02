@@ -32,6 +32,7 @@ trrackjs/
 | File | Purpose |
 |------|---------|
 | @docs/design.md | v2 architecture decisions, type definitions, enhancer pattern |
+| @docs/changelog-draft.md | Running changelog for v2 refactor |
 | @AGENTS.md | Project overview, commands, conventions (this file) |
 | @README.md | Public-facing documentation |
 
