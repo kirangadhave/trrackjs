@@ -185,9 +185,10 @@ This is a **major version overhaul** (clean slate, no backwards compatibility):
 - [x] **Simplify build system** - Removed Nx, using pnpm + tsup
 - [x] **Modernize tooling** - TypeScript 5.x, Vitest, Biome, lefthook
 - [x] **Package validation** - publint + attw for validating exports and types
-- [ ] **Release management** - Set up changesets or semantic-release for versioning/changelogs
 - [x] **Enhancer pattern design** - Builder API with type + runtime dependency checks (see `docs/design.md`)
-- [ ] **API implementation** - Implement core + enhancers with TypeScript inference
+- [x] **Core API implementation** - TrrackCore, navigation, reactivity enhancers with TypeScript inference
+- [ ] **Additional enhancers** - registry, metadata, persistence, sideEffects, devTools
+- [ ] **Release management** - Set up changesets or semantic-release for versioning/changelogs
 - [ ] **Performance** - Optimize for large graphs and memory efficiency
 - [ ] **New features** - Collaboration, persistence, visualization hooks
 
