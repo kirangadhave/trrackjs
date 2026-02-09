@@ -594,3 +594,14 @@ const trrack = createTrrack({ initialState })
 | 2025-02-02 | Selector-based effects over signals/proxy | Explicit dependencies, works with Immer structural sharing, no proxy overhead |
 | 2025-02-02 | `compare` namespace for equality functions | Extensible, discoverable via autocomplete, avoids flat export pollution |
 | 2025-02-02 | `subscribe()` built on `effect()` | Unified implementation, subscribe is just effect with always-different equality |
+| 2025-02-02 | Drop inverse patches from storage | Not used; undo navigates to parent and resolves forward from checkpoint; side effects will use explicit undo functions |
+| 2025-02-09 | Remove `EventData` type, flatten `label` onto `StateNode` | `payload` was redundant with state storage; `EventData` wrapper unnecessary for a single field |
+| 2025-02-09 | Add `meta: Record<string, unknown>` to `ProvenanceNodeBase` | Generic extension bag for enhancers (bookmarks, screenshots, annotations). Enhancers own their key, core just stores the data |
+
+## TODO
+
+### Node meta bag
+Add `meta: Record<string, unknown>` to `ProvenanceNodeBase`. This is a generic extension slot for enhancers to attach per-node data (bookmarks, screenshots, annotations, etc.). Each enhancer owns its own key in the bag. Core stores it passively; enhancers provide typed access.
+
+### Core hooks to replace enhancer method wrapping
+Replace the "wrappers before callers" ordering requirement with a hook system in core. Instead of enhancers wrapping `apply`/`setCurrent`, core provides `_onApply(callback)` and `_onSetCurrent(callback)` hooks. Enhancers register callbacks; core calls all hooks after execution. This eliminates enhancer ordering concerns for behavior wrapping.
