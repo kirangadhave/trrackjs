@@ -51,9 +51,23 @@
 - [x] Tests: checkpoint, state
 - [x] Verify: pnpm check
 
-### Up next: apply() + getState()
+### Done: TrrackCore kernel (apply, getState, record, register)
 
-- [ ] Core: apply() + getState()
+- [x] `src/types.ts` — Trrack (public), TrrackCore (internal extends public), TrrackAction, ActionConfig
+- [x] `src/internal/trrack-core.ts` — createTrrackCore factory
+- [x] `record(event, label, newState, patches)` — low-level node commit (TrrackCore only)
+- [x] `register(event, config)` → `TrrackAction<Args>` — action registry with LabelLike + typed recipe
+- [x] `apply(action, ...args)` — public API, produces state, resolves label, calls record
+- [x] `getState()` / `getState(id)` — current state or resolve by node id
+- [x] `setCurrent(id)` — move pointer + resolve state (for navigation)
+- [x] Checkpoint strategy integration (evaluates on each record)
+- [x] Methods everywhere (no getters) for plugin composition via spreading
+- [x] Tests: 20 tests covering core, register, apply, record, checkpoint strategies, setCurrent
+- [x] Test fixtures: `tests/fixtures/common.ts` (shared TestState), `tests/fixtures/trrack-core.ts`
+- [x] Verify: pnpm check
+
+### Up next: path finding (LCA)
+
 - [ ] Core: path finding (LCA)
 - [ ] Core: event emitter
 - [ ] Core: plugin system (registration, hooks, ext bags, builder)

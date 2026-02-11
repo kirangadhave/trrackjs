@@ -36,6 +36,19 @@ Used to generate PR descriptions during release.
   - `CheckpointContext<State>` — chain length, cumulative patch count, patches, new/previous state
   - Smart default: checkpoint when `chainLength >= 10` OR `cumulativePatchCount >= 50`
 - **`LabelLike<State>` type** — labels can be a string or a function of `{ newState, previousState }`
+- **TrrackCore kernel** (`src/internal/trrack-core.ts`)
+  - `createTrrackCore(config)` — factory that creates the stateful kernel
+  - `record(event, label, newState, patches)` — low-level node commit (internal API)
+  - `register(event, config)` → `TrrackAction<Args>` — typed action registry with `LabelLike` labels
+  - `apply(action, ...args)` — public API: produces state via registered recipe, resolves label, commits node
+  - `getState()` — returns current state (O(1)); `getState(id)` resolves from checkpoint
+  - `setCurrent(id)` — moves current pointer and resolves state (for navigation)
+  - Checkpoint strategy evaluated on each record
+- **Public API types** (`src/types.ts`)
+  - `Trrack<State>` — public interface with `register`, `apply`, `getState`, `getNode`, `current()`, `root()`
+  - `TrrackCore<State> extends Trrack<State>` — internal interface adding `record`, `setCurrent`, `graph()`, `generateId()`, `initialState()`
+  - `TrrackAction<Args>` — opaque action handle with phantom-typed args
+  - `ActionConfig<State, Args>` — action registration config (label + recipe)
 - **Tooling**
   - `pnpm check` script — runs typecheck + lint + test + build + publint + attw in one command
   - Vitest tests in `packages/*/tests/` (mirroring src structure)
@@ -47,3 +60,6 @@ Used to generate PR descriptions during release.
 - All plugins (core + user) in `@trrack/core`; separate packages for adapters/vis
 - `addNode()` does NOT move current pointer — separated from `setCurrent()` for event system flexibility
 - Nodes have `label` + `event` strings; additional metadata (category, tags, annotations) goes in `ext` via metadata plugin
+- `Trrack` = public API, `TrrackCore extends Trrack` = internal API for plugins — methods everywhere (no getters) for clean plugin composition via object spreading
+- Public `apply()` is registry-based: users `register()` actions, then `apply(action, ...args)`. Internal `record()` takes pre-computed state + patches (no recipe, no double-produce)
+- `LabelLike` resolution happens in `apply()` after producing state — labels can reference `newState`/`previousState`

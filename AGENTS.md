@@ -47,7 +47,11 @@ pnpm workspaces, TypeScript 5.x, tsup (ESM + CJS), Vitest, Biome, lefthook, comm
 - Conventional commits: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`
 - Scopes: `core`, `redux`, `docs`, `deps`, `release`
 - Tests: `*.test.ts` or `*.spec.ts` in `packages/*/tests/`
-- Test fixtures in `tests/fixtures/`
+- Test fixtures in `tests/fixtures/` — **always use fixtures**:
+  - Shared types (e.g. `TestState`) go in `tests/fixtures/common.ts`
+  - Reusable helpers (factory functions, action registrations) go in module-specific fixture files (e.g. `tests/fixtures/trrack-core.ts`)
+  - Never inline test helpers that could be reused — put them in fixtures
+  - Fixtures should be concrete (`TestState`-specific) not generic, unless the helper is truly state-agnostic (e.g. `tests/fixtures/state.ts`)
 
 ## Workflow
 
