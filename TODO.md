@@ -30,19 +30,19 @@
 
 ## Implementation
 
-### Current: graph data structure + node types
+### Done: graph data structure + node types
 
-- [ ] Swap immer → mutative in package.json, pnpm install
-- [ ] `src/internal/types.ts` — NodeId, EventData, StateStorage, node types, ProvenanceGraph
-- [ ] `src/internal/node-id.ts` — nodeId() cast, defaultGenerateId, createIdGenerator
-- [ ] `src/internal/guards.ts` — isRootNode, isStateNode
-- [ ] `src/internal/graph.ts` — createGraph, getNode, getRoot, getCurrent, addNode, setCurrent
-- [ ] `src/internal/index.ts` — barrel export
-- [ ] `src/index.ts` — update package entry with re-exports
-- [ ] Tests: node-id, guards, graph
-- [ ] Verify: pnpm test && pnpm typecheck && pnpm lint && pnpm build
+- [x] Swap immer → mutative in package.json, pnpm install
+- [x] `src/internal/types.ts` — NodeId, StateStorage, node types, ProvenanceGraph
+- [x] `src/internal/node-id.ts` — nodeId() cast, defaultGenerateId, createIdGenerator
+- [x] `src/internal/guards.ts` — isRootNode, isStateNode
+- [x] `src/internal/graph.ts` — createGraph, getNode, getRoot, getCurrent, addNode, setCurrent
+- [x] `src/internal/index.ts` — barrel export
+- [x] `src/index.ts` — update package entry with re-exports
+- [x] Tests: node-id, guards, graph (26 tests)
+- [x] Verify: pnpm check (typecheck + lint + test + build + publint + attw)
 
-### Up next
+### Up next: state storage (checkpoint/patch, Mutative integration)
 
 - [ ] Core: state storage (checkpoint/patch, Mutative integration)
 - [ ] Core: apply() + getState()

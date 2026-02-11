@@ -6,6 +6,7 @@ Trrack (**r**eproducible **track**ing) is a TypeScript library for action-based 
 
 - `DESIGN.md` — Architecture and design decisions. Read before implementation work. Update when design decisions change.
 - `TODO.md` — Current tasks and progress. Check when resuming work. Keep updated as tasks complete or new ones arise.
+- `CHANGELOG.md` — Draft changelog for the current release. Update when committing relevant changes (features, fixes, breaking changes, design decisions).
 - `_reference/` — Archived v1 code for API reference.
 
 ## Repository Structure
@@ -54,6 +55,7 @@ pnpm workspaces, TypeScript 5.x, tsup (ESM + CJS), Vitest, Biome, lefthook, comm
 - **When resuming**: Check `TODO.md` for where things left off, pick up the next incomplete item.
 - **During implementation**: Consult `DESIGN.md` for design decisions. If a decision isn't covered, ask before deciding.
 - **After completing work**: Update `TODO.md` to mark tasks done and add any new tasks discovered.
+- **When committing**: Update `CHANGELOG.md` if the commit includes relevant changes (features, fixes, breaking changes).
 - **When design changes**: Update `DESIGN.md` to reflect new decisions.
 
 ## Code Review
