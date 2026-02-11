@@ -46,20 +46,13 @@ A directed acyclic graph (DAG) of provenance nodes. Each node has one parent (ex
 ### Node Structure
 
 ```typescript
-type NodeId = string & { readonly __brand: unique symbol }
-
-// Structured event data for provenance analysis
-interface EventData {
-  label: string          // human-readable, e.g. 'Applied price filter'
-  type?: string          // machine-readable, e.g. 'filter.apply'
-  category?: string      // grouping for analysis, e.g. 'data-manipulation'
-  tags?: string[]        // flexible tagging for post-hoc analysis
-}
+type NodeId = string & { readonly [__nodeIdBrand]: never }
 
 interface NodeBase {
   id: NodeId
   type: 'root' | 'state'
-  label: string
+  label: string              // human-readable, e.g. 'Applied price filter'
+  event: string              // machine-readable action type, e.g. 'filter.apply'
   createdAt: number
   children: NodeId[]
   ext: Record<string, unknown>   // plugin data, namespaced by plugin name
@@ -67,20 +60,20 @@ interface NodeBase {
 
 interface RootNode extends NodeBase {
   type: 'root'
+  event: 'root'
   state: { type: 'checkpoint'; value: State }
 }
 
 interface StateNode extends NodeBase {
   type: 'state'
   parent: NodeId
-  event: EventData
   state: StateStorage<State>
 }
 
 type ProvenanceNode = RootNode | StateNode
 ```
 
-`NodeBase.label` is always `event.label` for state nodes, `'Root'` for root. Kept at top level for convenience.
+Nodes have `label` (human-readable) and `event` (machine-readable action type, like v1's `eventType`). Additional categorization (category, tags, annotations, bookmarks) lives in `ext` via the metadata plugin.
 
 ### State Storage
 
@@ -159,24 +152,21 @@ let currentState: State = initialState
 Kernel method. Synchronous. Creates a new state node.
 
 ```typescript
-apply(event: string | EventData, recipe: (draft: Draft<State>) => void): void
+apply(event: string, label: string, recipe: (draft: Draft<State>) => void): void
 ```
 
-First argument is either a string (shorthand for `{ label: string }`) or a full `EventData` object with analysis metadata.
+`event` is a machine-readable action type (e.g. `'filter.apply'`). `label` is human-readable (e.g. `'Applied price filter'`).
 
 ```typescript
-// Simple
-t.apply('Increment', draft => { draft.count++ })
+t.apply('increment', 'Increment count', draft => { draft.count++ })
 
-// With metadata for analysis
-t.apply(
-  { label: 'Applied filter', type: 'filter.apply', category: 'data' },
-  draft => { draft.filter = 'active' }
-)
+t.apply('filter.apply', 'Applied price filter', draft => {
+  draft.filter = 'active'
+})
 ```
 
 Flow:
-1. Normalize `event` — string becomes `{ label: event }`
+1. Validate event and label are non-empty strings
 2. Run `produceWithPatches(currentState, recipe)` → `[newState, patches]`
 3. Evaluate checkpoint strategy → decide checkpoint or patch storage
 4. Create `StateNode` with chosen storage and event data
@@ -268,7 +258,7 @@ interface TrrackCore<State> {
   setCurrent(id: NodeId): void
 
   // State
-  apply(event: string | EventData, recipe: (draft: Draft<State>) => void): void
+  apply(event: string, label: string, recipe: (draft: Draft<State>) => void): void
   getState(): State
   getState(id: NodeId): State
 
@@ -294,7 +284,7 @@ The end-user API. Kernel public methods + all plugin methods merged in.
 ```typescript
 interface Trrack<State> {
   // Recording
-  apply(event: string | EventData, recipe: (draft: Draft<State>) => void): void
+  apply(event: string, label: string, recipe: (draft: Draft<State>) => void): void
 
   // State
   getState(): State
@@ -388,7 +378,8 @@ Hooks map to kernel events. Difference: events are for listeners, hooks can modi
 
 ```typescript
 interface RecordContext<State> {
-  event: EventData
+  event: string
+  label: string
   patches: Patch[]
   newState: State
   previousState: State
@@ -536,7 +527,8 @@ Provides: {
   ): Action<Name, Args>
 
   dispatch<Args extends any[]>(
-    event: string | EventData,
+    event: string,
+    label: string,
     action: Action<string, Args>,
     ...args: Args
   ): Promise<void>
@@ -590,14 +582,9 @@ const t = createTrrack<AppState>({
   .use(ephemeral())
   .build()
 
-// Kernel API — simple string label
-t.apply('Add item', draft => { draft.items.push('hello') })
-
-// Kernel API — structured event for analysis
-t.apply(
-  { label: 'Applied filter', type: 'filter.apply', category: 'data', tags: ['user-study'] },
-  draft => { draft.filter = 'active' }
-)
+// Core API — event type + human-readable label + state recipe
+t.apply('item.add', 'Add item', draft => { draft.items.push('hello') })
+t.apply('filter.apply', 'Applied price filter', draft => { draft.filter = 'active' })
 
 const state = t.getState()
 
