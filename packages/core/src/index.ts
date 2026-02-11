@@ -6,13 +6,18 @@
 
 export const VERSION = '2.0.0-alpha.0';
 
-export interface TrrackConfig<State> {
-  initialState: State;
-}
+// Types
+export type {
+  Patch,
+  NodeId,
+  CheckpointStorage,
+  PatchStorage,
+  StateStorage,
+  RootNode,
+  StateNode,
+  ProvenanceNode,
+  ProvenanceGraph,
+} from './internal';
 
-export function createTrrack<State>(config: TrrackConfig<State>) {
-  return {
-    version: VERSION,
-    state: config.initialState,
-  };
-}
+// Functions
+export { nodeId, isRootNode, isStateNode } from './internal';

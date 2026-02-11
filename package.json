@@ -19,7 +19,8 @@
     "clean": "rm -rf node_modules packages/*/dist packages/*/node_modules",
     "prepare": "lefthook install",
     "publint": "pnpm -r exec publint",
-    "attw": "pnpm -r exec attw --pack"
+    "attw": "pnpm -r exec attw --pack",
+    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm publint && pnpm attw"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",
