@@ -17,7 +17,14 @@ export type {
   StateNode,
   ProvenanceNode,
   ProvenanceGraph,
+  CheckpointContext,
+  CheckpointConfig,
+  CheckpointFn,
+  LabelLike,
+  ProduceResult,
 } from './internal';
 
 // Functions
 export { nodeId, isRootNode, isStateNode } from './internal';
+export { CheckpointStrategy, DEFAULT_MAX_CHAIN_LENGTH, DEFAULT_MAX_PATCH_COUNT } from './internal';
+export { resolveState, produceNextState } from './internal';

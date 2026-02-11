@@ -5,6 +5,7 @@ import type { NodeId, ProvenanceGraph, ProvenanceNode, RootNode, StateNode } fro
 
 export interface CreateGraphConfig<State> {
   initialState: State;
+  rootLabel?: string;
   generateId?: () => string;
 }
 
@@ -13,12 +14,13 @@ export interface CreateGraphConfig<State> {
 /** Create a new provenance graph with a root node. */
 export function createGraph<State>(config: CreateGraphConfig<State>) {
   const generateId = createIdGenerator(config.generateId);
+  const rootLabel = config.rootLabel ?? 'Root';
   const rootId = generateId();
 
   const rootNode: RootNode<State> = {
     id: rootId,
     type: 'root',
-    label: 'Root',
+    label: rootLabel,
     event: 'root',
     createdAt: Date.now(),
     children: [],

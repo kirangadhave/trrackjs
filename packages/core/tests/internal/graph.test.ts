@@ -30,6 +30,12 @@ describe('createGraph', () => {
     expect(typeof root.createdAt).toBe('number');
   });
 
+  it('uses custom root label', () => {
+    const { graph } = createGraph({ initialState: { count: 0 }, rootLabel: 'Initial State' });
+    const root = getRoot(graph);
+    expect(root.label).toBe('Initial State');
+  });
+
   it('uses custom id generator', () => {
     let counter = 0;
     const { graph } = createGraph({

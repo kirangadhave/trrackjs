@@ -12,14 +12,8 @@ export function defaultGenerateId(): NodeId {
   return nodeId(crypto.randomUUID());
 }
 
-/**
- * Returns a GenerateId function.
- * Wraps a custom generator to brand its output as NodeId,
- * or falls back to defaultGenerateId.
- */
+/** Wraps a custom string generator to produce branded NodeIds, or falls back to default. */
 export function createIdGenerator(custom?: () => string): GenerateId {
-  if (custom) {
-    return () => nodeId(custom());
-  }
-  return defaultGenerateId;
+  if (!custom) return defaultGenerateId;
+  return () => nodeId(custom());
 }

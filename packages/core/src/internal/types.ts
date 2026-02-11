@@ -29,6 +29,16 @@ export interface PatchStorage {
 
 export type StateStorage<State> = CheckpointStorage<State> | PatchStorage;
 
+// --- Labels ---
+
+interface LabelContext<State> {
+  newState: State;
+  previousState: State;
+}
+
+/** Label input type: string, no-arg thunk, or state-aware function. */
+export type LabelLike<State> = string | ((ctx: LabelContext<State>) => string);
+
 // --- Nodes ---
 
 interface NodeBase {
