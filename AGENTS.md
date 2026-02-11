@@ -2,6 +2,12 @@
 
 Trrack (**r**eproducible **track**ing) is a TypeScript library for action-based provenance tracking in web applications. It maintains a DAG of application states, enabling undo/redo, time-travel debugging, and full audit trails.
 
+## Key Files
+
+- `DESIGN.md` — Architecture and design decisions. Read before implementation work. Update when design decisions change.
+- `TODO.md` — Current tasks and progress. Check when resuming work. Keep updated as tasks complete or new ones arise.
+- `_reference/` — Archived v1 code for API reference.
+
 ## Repository Structure
 
 ```
@@ -9,6 +15,8 @@ trrackjs/
 ├── packages/
 │   └── core/           # @trrack/core - Main library (v2, fresh start)
 ├── _reference/         # Archived v1 code for API reference
+├── DESIGN.md           # v2 architecture and design decisions
+├── TODO.md             # Task tracking
 └── ...config files
 ```
 
@@ -36,6 +44,14 @@ pnpm workspaces, TypeScript 5.x, tsup (ESM + CJS), Vitest, Biome, lefthook, comm
 - Scopes: `core`, `redux`, `docs`, `deps`, `release`
 - Tests: `*.test.ts` or `*.spec.ts` in `packages/*/tests/`
 - Test fixtures in `tests/fixtures/`
+
+## Workflow
+
+- **Before starting work**: Read `DESIGN.md` for architecture context and `TODO.md` for current tasks.
+- **When resuming**: Check `TODO.md` for where things left off, pick up the next incomplete item.
+- **During implementation**: Consult `DESIGN.md` for design decisions. If a decision isn't covered, ask before deciding.
+- **After completing work**: Update `TODO.md` to mark tasks done and add any new tasks discovered.
+- **When design changes**: Update `DESIGN.md` to reflect new decisions.
 
 ## Guidelines
 
