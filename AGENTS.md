@@ -12,6 +12,9 @@ Trrack (**r**eproducible **track**ing) is a TypeScript library for action-based 
 
 ```
 trrackjs/
+├── .claude/
+│   └── agents/
+│       └── code-reviewer.md   # Isolated code review subagent
 ├── packages/
 │   └── core/           # @trrack/core - Main library (v2, fresh start)
 ├── _reference/         # Archived v1 code for API reference
@@ -53,8 +56,15 @@ pnpm workspaces, TypeScript 5.x, tsup (ESM + CJS), Vitest, Biome, lefthook, comm
 - **After completing work**: Update `TODO.md` to mark tasks done and add any new tasks discovered.
 - **When design changes**: Update `DESIGN.md` to reflect new decisions.
 
+## Code Review
+
+- **Use the `code-reviewer` subagent** for reviewing code changes. It runs in isolated context to keep the main conversation clean.
+- Prefer subagents over inline review to avoid polluting the working context with verbose review output.
+- Review focus: bugs, security, performance, correctness. No style nits.
+
 ## Guidelines
 
+- The human writes most code; Claude reviews, tests, and enforces best practices
 - Ask before major decisions (architecture, API design, dependency choices)
 - Keep it simple — start minimal, add complexity when needed
 - Run `pnpm test` after modifications
