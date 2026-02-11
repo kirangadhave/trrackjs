@@ -5,7 +5,7 @@ import {
   DEFAULT_MAX_PATCH_COUNT,
 } from '../../src/internal';
 import { makeCheckpointCtx } from '../fixtures/checkpoint';
-import type { TestState } from '../fixtures/nodes';
+import type { TestState } from '../fixtures/common';
 
 describe('CheckpointStrategy.always', () => {
   it('always returns true', () => {

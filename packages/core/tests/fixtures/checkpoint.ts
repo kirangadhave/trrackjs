@@ -1,5 +1,5 @@
 import type { CheckpointContext } from '../../src/internal';
-import type { TestState } from './nodes';
+import type { TestState } from './common';
 
 export function makeCheckpointCtx(
   overrides: Partial<CheckpointContext<TestState>> = {},

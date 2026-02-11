@@ -4,3 +4,4 @@ export * from './guards';
 export * from './graph';
 export * from './checkpoint';
 export * from './state';
+export * from './trrack-core';

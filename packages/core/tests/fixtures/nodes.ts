@@ -1,9 +1,6 @@
 import { nodeId } from '../../src/internal';
 import type { RootNode, StateNode } from '../../src/internal';
-
-export interface TestState {
-  count: number;
-}
+import type { TestState } from './common';
 
 export const ROOT_ID = nodeId('root');
 
