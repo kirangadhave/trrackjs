@@ -42,9 +42,17 @@
 - [x] Tests: node-id, guards, graph (26 tests)
 - [x] Verify: pnpm check (typecheck + lint + test + build + publint + attw)
 
-### Up next: state storage (checkpoint/patch, Mutative integration)
+### Done: state storage + checkpoint strategy
 
-- [ ] Core: state storage (checkpoint/patch, Mutative integration)
+- [x] `src/internal/types.ts` — CheckpointStorage, PatchStorage, StateStorage, LabelLike
+- [x] `src/internal/checkpoint.ts` — CheckpointContext, CheckpointConfig, CheckpointFn, CheckpointStrategy (always/never/threshold)
+- [x] `src/internal/state.ts` — resolveState (walk from checkpoint + applyPatches), produceNextState (Mutative produce with patches)
+- [x] `src/index.ts` — re-export checkpoint + state types and functions
+- [x] Tests: checkpoint, state
+- [x] Verify: pnpm check
+
+### Up next: apply() + getState()
+
 - [ ] Core: apply() + getState()
 - [ ] Core: path finding (LCA)
 - [ ] Core: event emitter

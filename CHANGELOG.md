@@ -28,6 +28,14 @@ Used to generate PR descriptions during release.
   - `nodeId()` cast helper, `defaultGenerateId()` via `crypto.randomUUID()`, configurable via `createIdGenerator()`
 - **Type guards** (`src/internal/guards.ts`)
   - `isRootNode()` / `isStateNode()` with TypeScript type narrowing
+- **State storage** (`src/internal/state.ts`)
+  - `resolveState(graph, nodeId)` — walks from nearest checkpoint ancestor, applies patches in order via Mutative's `applyPatches`
+  - `produceNextState(currentState, recipe)` — Mutative `create` with patches enabled, returns new state + forward patches (inverse patches discarded)
+- **Checkpoint strategy** (`src/internal/checkpoint.ts`)
+  - `CheckpointStrategy.always` / `.never` / `.threshold(config)` — built-in strategies
+  - `CheckpointContext<State>` — chain length, cumulative patch count, patches, new/previous state
+  - Smart default: checkpoint when `chainLength >= 10` OR `cumulativePatchCount >= 50`
+- **`LabelLike<State>` type** — labels can be a string or a function of `{ newState, previousState }`
 - **Tooling**
   - `pnpm check` script — runs typecheck + lint + test + build + publint + attw in one command
   - Vitest tests in `packages/*/tests/` (mirroring src structure)
