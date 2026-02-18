@@ -1,0 +1,28 @@
+{
+	"name": "trrack",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "pnpm -r run build",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"format": "biome format --write .",
+		"typecheck": "pnpm -r run typecheck",
+		"check-exports": "pnpm -r run check-exports"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.0",
+		"@commitlint/cli": "^19.0.0",
+		"@commitlint/config-conventional": "^19.0.0",
+		"lefthook": "^1.9.0",
+		"typescript": "^5.7.0",
+		"vitest": "^3.0.0"
+	},
+	"packageManager": "pnpm@9.15.0",
+	"engines": {
+		"node": ">=20"
+	}
+}

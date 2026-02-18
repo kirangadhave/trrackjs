@@ -1,16 +1,16 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(tree:*)",
-      "Bash(wc:*)",
-      "Bash(pnpm typecheck:*)",
-      "Bash(pnpm lint:*)",
-      "Bash(pnpm test:*)",
-      "WebSearch",
-      "WebFetch(domain:bundlephobia.com)",
-      "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(domain:github.com)",
-      "WebFetch(domain:vdl.sci.utah.edu)"
-    ]
-  }
+	"permissions": {
+		"allow": [
+			"Bash(tree:*)",
+			"Bash(wc:*)",
+			"Bash(pnpm typecheck:*)",
+			"Bash(pnpm lint:*)",
+			"Bash(pnpm test:*)",
+			"WebSearch",
+			"WebFetch(domain:bundlephobia.com)",
+			"WebFetch(domain:raw.githubusercontent.com)",
+			"WebFetch(domain:github.com)",
+			"WebFetch(domain:vdl.sci.utah.edu)"
+		]
+	}
 }

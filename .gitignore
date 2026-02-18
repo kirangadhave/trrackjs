@@ -1,0 +1,26 @@
+# dependencies
+node_modules
+
+# build output
+dist
+
+# test coverage
+coverage
+
+# editor
+.idea
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# env
+.env
+.env.*
+
+# pnpm
+.pnpm-debug.log
+
+# lefthook
+.lefthook-local.yml
