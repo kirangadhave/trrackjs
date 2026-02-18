@@ -47,7 +47,8 @@ trrackjs/
 - Conventional commits: `feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`
 - Scopes: `core`
 - Tests: `*.test.ts` or `*.spec.ts` in `packages/*/tests/`
-- Test fixtures in `tests/fixtures/` — always use fixtures for shared types and reusable helpers
+- Test fixtures in `tests/fixtures/` — separate files by concern (e.g., `state.ts` for shared types/values, `storage.ts` for storage helpers). Reuse across test files.
+- Test file structure mirrors `src/` (e.g., `src/types/node.ts` → `tests/types/node.test.ts`)
 - Prefer editing existing files over creating new ones
 
 ## Workflow

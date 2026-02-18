@@ -11,7 +11,8 @@
 		"lint:fix": "biome check --write .",
 		"format": "biome format --write .",
 		"typecheck": "pnpm -r run typecheck",
-		"check-exports": "pnpm -r run check-exports"
+		"check-exports": "pnpm -r run check-exports",
+		"validate": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.0",
