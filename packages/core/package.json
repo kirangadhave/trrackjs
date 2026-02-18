@@ -36,5 +36,9 @@
 		"url": "https://github.com/Trrack/trrackjs.git",
 		"directory": "packages/core"
 	},
-	"keywords": ["provenance", "undo", "redo", "tracking", "state"]
+	"keywords": ["provenance", "undo", "redo", "tracking", "state"],
+	"dependencies": {
+		"mutative": "^1.3.0",
+		"nanoid": "^5.1.6"
+	}
 }
