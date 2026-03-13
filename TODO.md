@@ -37,19 +37,19 @@ Remove Nx entirely. Replace ESLint+Prettier with Biome. Use pnpm workspaces for 
 ## Steps
 
 ### Step 1: Switch from Yarn to pnpm
-- [ ] Add `pnpm-workspace.yaml` with packages and apps globs
-- [ ] Delete `yarn.lock`
-- [ ] Remove `"workspaces"` field from root `package.json`
-- [ ] Run `pnpm install` to generate `pnpm-lock.yaml`
+- [x] Add `pnpm-workspace.yaml` with packages and apps globs
+- [x] Delete `yarn.lock`
+- [x] Remove `"workspaces"` field from root `package.json`
+- [x] Run `pnpm install` to generate `pnpm-lock.yaml`
 - **Test**: `pnpm install` succeeds, `node_modules` resolves correctly
 
 ### Step 2: Replace ESLint + Prettier with Biome
-- [ ] Install `@biomejs/biome` as root devDependency
-- [ ] Create root `biome.json` with:
+- [x] Install `@biomejs/biome` as root devDependency
+- [x] Create root `biome.json` with:
   - Formatter: indent 2 spaces, single quotes (matching current `.prettierrc`)
   - Linter: recommended rules
   - Organize imports: enabled
-- [ ] Delete ALL ESLint configs:
+- [x] Delete ALL ESLint configs:
   - `.eslintrc.json` (root)
   - `.eslintignore`
   - `packages/core/.eslintrc.json`
@@ -59,10 +59,10 @@ Remove Nx entirely. Replace ESLint+Prettier with Biome. Use pnpm workspaces for 
   - `apps/dummy-testing-library/.eslintrc.json`
   - `apps/trrack-lineup-example/.eslintrc.json`
   - `apps/docs/.eslintrc.json`
-- [ ] Delete ALL Prettier configs:
+- [x] Delete ALL Prettier configs:
   - `.prettierrc`
   - `.prettierignore`
-- [ ] Remove ESLint + Prettier devDependencies from root `package.json`:
+- [x] Remove ESLint + Prettier devDependencies from root `package.json`:
   - `eslint`, `eslint-config-prettier`, `eslint-config-next`
   - `eslint-plugin-import`, `eslint-plugin-jsx-a11y`
   - `eslint-plugin-react`, `eslint-plugin-react-hooks`
@@ -70,8 +70,8 @@ Remove Nx entirely. Replace ESLint+Prettier with Biome. Use pnpm workspaces for 
   - `@nrwl/eslint-plugin-nx`, `@nrwl/linter`
   - `prettier`
   - `vite-plugin-eslint`
-- [ ] Update lint-staged config to use `biome check --write`
-- [ ] Add scripts: `"lint": "biome check ."`, `"format": "biome check --write ."`
+- [x] Update lint-staged config to use `biome check --write`
+- [x] Add scripts: `"lint": "biome check ."`, `"format": "biome check --write ."`
 - **Test**:
   - `pnpm biome check .` runs without errors
   - `pnpm biome check --write .` formats all files consistently
