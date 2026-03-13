@@ -1,7 +1,7 @@
 import { initializeTrrack, Registry } from '@trrack/core';
 import {
-  buildCategoricalColumn,
   builder as bld,
+  buildCategoricalColumn,
   buildNumberColumn,
   buildStringColumn,
 } from 'lineupjs';
@@ -13,7 +13,7 @@ const cats = ['c1', 'c2', 'c3'];
 for (let i = 0; i < 10000; ++i) {
   arr.push({
     a: Math.random() * 10,
-    d: 'Row ' + i,
+    d: `Row ${i}`,
     cat: cats[Math.floor(Math.random() * 3)],
     cat2: cats[Math.floor(Math.random() * 3)],
   });
@@ -49,15 +49,15 @@ export function setup(node: HTMLElement[]) {
 
   console.log(trrack.registry);
 
-  document.querySelector<HTMLButtonElement>('#undo').onclick = (e) => {
+  document.querySelector<HTMLButtonElement>('#undo').onclick = (_e) => {
     trrack.undo();
   };
 
-  document.querySelector<HTMLButtonElement>('#redo').onclick = (e) => {
+  document.querySelector<HTMLButtonElement>('#redo').onclick = (_e) => {
     trrack.redo();
   };
 
-  document.querySelector<HTMLButtonElement>('#log').onclick = (e) => {
+  document.querySelector<HTMLButtonElement>('#log').onclick = (_e) => {
     console.table((trrack as any).graph.nodes);
   };
 }

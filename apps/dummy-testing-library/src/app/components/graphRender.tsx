@@ -1,4 +1,9 @@
-import { Graph, IActionNode, IProvenanceNode, IStateNode } from '@trrack/core';
+import type {
+  Graph,
+  IActionNode,
+  IProvenanceNode,
+  IStateNode,
+} from '@trrack/core';
 import { useMemo } from 'react';
 
 import translate from '../utils/translate';
@@ -8,11 +13,11 @@ const YSPACING = SPACING * 0.5;
 const NODE_SIZE = 6;
 
 function useStateNodes(
-  graph: Graph
+  graph: Graph,
 ): Array<{ node: IStateNode<any>; x: number; y: number }> {
   return graph
     .nodesBy<IStateNode<any>>(
-      (node) => (node as IProvenanceNode).type === 'State'
+      (node) => (node as IProvenanceNode).type === 'State',
     )
     .sort((a, b) => a.createdOn.getTime() - b.createdOn.getTime())
     .map((node, idx) => ({ node, x: SPACING * idx, y: 0 }));
@@ -21,7 +26,7 @@ function useStateNodes(
 function useActionNodes(graph: Graph) {
   const allActionNodes = graph
     .nodesBy<IActionNode<any>>(
-      (node) => (node as IProvenanceNode).type === 'Action'
+      (node) => (node as IProvenanceNode).type === 'Action',
     )
     .sort((a, b) => a.createdOn.getTime() - b.createdOn.getTime());
 

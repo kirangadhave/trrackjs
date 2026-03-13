@@ -1,5 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { asyncDoUndoActionCreatorHelper, createTrrackableSlice } from '@trrack/redux';
+import {
+  asyncDoUndoActionCreatorHelper,
+  createTrrackableSlice,
+} from '@trrack/redux';
 
 export const getPostById = createAsyncThunk(
   'post/getpostById',
@@ -14,11 +17,11 @@ export const getPostById = createAsyncThunk(
     }
 
     const response = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${postId}`
+      `https://jsonplaceholder.typicode.com/posts/${postId}`,
     );
 
     return response.json();
-  }
+  },
 );
 
 export const postSlice = createTrrackableSlice({
@@ -41,11 +44,11 @@ export const postSlice = createTrrackableSlice({
       return {
         do: asyncDoUndoActionCreatorHelper(
           getPostById.typePrefix,
-          action.payload.id
+          action.payload.id,
         ),
         undo: asyncDoUndoActionCreatorHelper(
           getPostById.typePrefix,
-          action.payload.id - 1
+          action.payload.id - 1,
         ),
       };
     },

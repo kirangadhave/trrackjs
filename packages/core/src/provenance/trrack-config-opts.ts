@@ -1,6 +1,6 @@
-import { Registry } from '../registry/reg';
+import type { Registry } from '../registry/reg';
 
 export type ConfigureTrrackOptions<S, E extends string = any> = {
-    registry: Registry<E>;
-    initialState: S;
+  registry: Registry<E>;
+  initialState: S;
 };

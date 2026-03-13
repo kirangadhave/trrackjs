@@ -1,14 +1,14 @@
 import {
-  ActionCreatorWithPayload,
-  AsyncThunk,
-  CaseReducerActions,
+  type ActionCreatorWithPayload,
+  type AsyncThunk,
+  type CaseReducerActions,
   createAction,
-  PayloadAction,
-  PayloadActionCreator,
-  Slice,
-  SliceCaseReducers,
+  type PayloadAction,
+  type PayloadActionCreator,
+  type Slice,
+  type SliceCaseReducers,
 } from '@reduxjs/toolkit';
-import { Label, LabelGenerator } from '@trrack/core';
+import type { Label, LabelGenerator } from '@trrack/core';
 
 export type LabelLike<CaseReducers extends SliceCaseReducers<any>> = Partial<{
   [K in keyof CaseReducerActions<CaseReducers, any>]: CaseReducerActions<
@@ -28,7 +28,7 @@ export type LabelGenerators = {
  */
 export type ReducerEventTypes<
   Event extends string,
-  CaseReducers extends SliceCaseReducers<any>
+  CaseReducers extends SliceCaseReducers<any>,
 > = {
   [K in keyof CaseReducerActions<CaseReducers, any>]: Event;
 };
@@ -42,7 +42,7 @@ export type ActionNameToTypeMap<
   CRA extends CaseReducerActions<CaseReducers, any> = CaseReducerActions<
     CaseReducers,
     any
-  >
+  >,
 > = {
   [K in keyof CRA]: CRA[K] extends ActionCreatorWithPayload<any, infer T>
     ? T
@@ -59,7 +59,7 @@ type NoOpActionType = typeof NO_OP_ACTION;
 type DoUndoActionCreator<
   Payload,
   DoPayload = Payload,
-  UndoPayload = DoPayload
+  UndoPayload = DoPayload,
 > = (args: {
   action: PayloadAction<Payload>;
   currentState: any;
@@ -69,7 +69,7 @@ type DoUndoActionCreator<
   undo: NoOpActionType | PayloadAction<UndoPayload>;
 };
 
-export type DoUndoActionCreators<CaseReducers extends SliceCaseReducers<any>> =
+export type DoUndoActionCreators<_CaseReducers extends SliceCaseReducers<any>> =
   Partial<{
     [key: string]: DoUndoActionCreator<any, any, any>;
     // [K in keyof CaseReducerActions<CaseReducers>]: CaseReducerActions<CaseReducers>[K] extends PayloadActionCreator<
@@ -81,7 +81,7 @@ export type DoUndoActionCreators<CaseReducers extends SliceCaseReducers<any>> =
 
 export type GeneratedDoUndoActionCreators = {
   [key: string]: (
-    args: Parameters<DoUndoActionCreator<any, any, any>>[0]
+    args: Parameters<DoUndoActionCreator<any, any, any>>[0],
   ) => Required<ReturnType<DoUndoActionCreator<any, any, any>>>;
 };
 
@@ -96,7 +96,7 @@ export type TrrackableSlice<
   State,
   CaseReducers extends SliceCaseReducers<State>,
   Event extends string = string,
-  Name extends string = string
+  Name extends string = string,
 > = Slice<State, CaseReducers, Name> & {
   [LABELS]: LabelGenerators;
   [EVENTS]: ReducerEventTypes<Event, CaseReducers>;

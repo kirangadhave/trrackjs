@@ -1,8 +1,8 @@
-import { initializeTrrack, Registry } from '@trrack/core';
+import type { initializeTrrack, Registry } from '@trrack/core';
 import {
-  Column,
+  type Column,
   EngineRenderer,
-  ISortCriteria,
+  type ISortCriteria,
   LineUp,
   Ranking,
 } from 'lineupjs';
@@ -25,7 +25,7 @@ import {
 
 // ! Add trrack suffix to all events
 
-function trrackedEvent(event: string) {
+function _trrackedEvent(event: string) {
   return `${event}.trrack`;
 }
 
@@ -52,7 +52,7 @@ function dirtyRankingWaiter(ranking: Ranking) {
   const trrackOrderChange = `${Ranking.EVENT_ORDER_CHANGED}.trrack`;
 
   return new Promise((res) => {
-    ranking.on(trrackDirtyOrder, (a) => {
+    ranking.on(trrackDirtyOrder, (_a) => {
       ranking.on(trrackDirtyOrder, null);
 
       ranking.on(trrackOrderChange, () => {
@@ -72,7 +72,7 @@ function trrackSortLike<T = any>(
   ranking: Ranking,
   handler: (previous: T, current: T) => void,
   executor: (arg: T) => void,
-  registry: Registry<any>
+  registry: Registry<any>,
 ) {
   const suffixedEventType = `${eventType}.trrack`;
 
@@ -87,11 +87,11 @@ function trrackSortLike<T = any>(
 }
 
 function trrackColumnEvents(
-  lineupId: string,
-  lineup: LineUp,
-  ranking: Ranking,
-  trrack: Trrack,
-  registry: Registry<any>
+  _lineupId: string,
+  _lineup: LineUp,
+  _ranking: Ranking,
+  _trrack: Trrack,
+  _registry: Registry<any>,
 ) {
   // TODO: Add column events
 }
@@ -101,7 +101,7 @@ function trrackRanking(
   lineupInstance: LineUp,
   ranking: Ranking,
   trrack: Trrack,
-  registry: Registry<any>
+  registry: Registry<any>,
 ) {
   // Sort
   const sortEvent = `${lineupId}-${ranking.id}-${Ranking.EVENT_SORT_CRITERIA_CHANGED}`;
@@ -111,7 +111,7 @@ function trrackRanking(
     ranking,
     (
       p: ISortCriteria | ISortCriteria[],
-      c: ISortCriteria | ISortCriteria[]
+      c: ISortCriteria | ISortCriteria[],
     ) => {
       trrack.record({
         label: 'Sort',
@@ -125,7 +125,7 @@ function trrackRanking(
     },
     (sortBy: ISortCriteria | ISortCriteria[]) =>
       ranking.setSortCriteria(sortBy),
-    registry
+    registry,
   );
 
   const groupEvent = `${lineupId}-${ranking.id}-${Ranking.EVENT_GROUP_CRITERIA_CHANGED}`;
@@ -148,7 +148,7 @@ function trrackRanking(
       console.log(col);
       ranking.setGroupCriteria(col);
     },
-    registry
+    registry,
   );
 
   trrackColumnEvents(lineupId, lineupInstance, ranking, trrack, registry);
@@ -158,7 +158,7 @@ function trrackLineUp(
   id: string,
   instance: LineUp,
   trrack: Trrack,
-  registry: Registry<any>
+  registry: Registry<any>,
 ) {
   instance.data
     .getRankings()
@@ -206,7 +206,7 @@ export function initLineupManager(trrack: Trrack, registry: Registry<any>) {
   };
 }
 
-function setupBuffer(instance: LineUp) {
+function _setupBuffer(instance: LineUp) {
   const dialog: DialogTracker = initDialogTracker();
 
   const initialStates = new Map<string, string>();
@@ -229,7 +229,7 @@ function setupBuffer(instance: LineUp) {
     `${EngineRenderer.EVENT_DIALOG_CLOSED}.trrack`,
     (_, dialogAction: 'cancel' | 'confirm') => {
       console.log('Dialog closed with:', dialogAction);
-    }
+    },
   );
 
   clearBuffer();

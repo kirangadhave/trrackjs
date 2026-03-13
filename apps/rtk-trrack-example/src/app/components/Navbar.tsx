@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { decrement, increment } from '../features/counter/counterSlice';
 import { getPostById } from '../features/posts/postSlice';
 import { addTodo } from '../features/todo/taskSlice';
-import { AppDispatch, RootState, trrack } from '../store/store';
+import { type AppDispatch, type RootState, trrack } from '../store/store';
 
 export const Navbar = () => {
   const counter = useSelector<RootState>((s) => s.counter.counter);
@@ -29,7 +29,7 @@ export const Navbar = () => {
               const url = new URL(window.location.href);
               const params = new URLSearchParams(url.search);
               params.set('prov', trrack.export());
-              window.history.replaceState({}, '', `${url.pathname}?${params}`)
+              window.history.replaceState({}, '', `${url.pathname}?${params}`);
             }}
           >
             Update URL

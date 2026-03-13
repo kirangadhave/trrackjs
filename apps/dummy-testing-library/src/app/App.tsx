@@ -1,8 +1,7 @@
 import { Button } from '@mantine/core';
 import { useElementSize } from '@mantine/hooks';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { IProvenanceGraph, ProvenanceGraph, Trrack } from '@trrack/core';
-import test from 'node:test';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { type IProvenanceGraph, ProvenanceGraph, Trrack } from '@trrack/core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import styles from './App.module.css';
@@ -14,7 +13,7 @@ function useGraph<T>(state: T) {
     initialState: 'Hello, World!',
     name: 'Test',
     reducers: {
-      change(test, action: PayloadAction<string>) {
+      change(_test, action: PayloadAction<string>) {
         return action.payload;
       },
     },
@@ -31,7 +30,7 @@ function useGraph<T>(state: T) {
   t.apply('4', actions.change('Bye 1'));
 
   const [provenance, setProvenance] = useState<IProvenanceGraph<T> | null>(
-    null
+    null,
   );
 
   useEffect(() => {
@@ -71,7 +70,7 @@ export function App() {
   }, [graph, a]);
 
   return (
-    <div ref={ref} className={styles['container']}>
+    <div ref={ref} className={styles.container}>
       <div>
         <Button
           onClick={() => {

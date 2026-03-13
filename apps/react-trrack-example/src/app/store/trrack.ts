@@ -1,7 +1,7 @@
 import { initializeTrrack, Registry } from '@trrack/core';
 import { useMemo, useState } from 'react';
 
-import { Task } from './types';
+import type { Task } from './types';
 
 const initialState = {
   tasks: [] as Task[],
@@ -30,7 +30,7 @@ export function useTrrackTaskManager() {
       (state, task: Task) => {
         const idx = state.tasks.findIndex((d: any) => d.id === task.id);
         state.tasks[idx].completed = true;
-      }
+      },
     );
 
     const markTaskIncomplete = reg.register(
@@ -38,7 +38,7 @@ export function useTrrackTaskManager() {
       (state, task: Task) => {
         const idx = state.tasks.findIndex((d: any) => d.id === task.id);
         state.tasks[idx].completed = false;
-      }
+      },
     );
 
     const incrementCounter = reg.register(
@@ -47,14 +47,14 @@ export function useTrrackTaskManager() {
         setCounter((c) => c + add);
         return {
           undo: {
-          type: 'decrement-counter',
-          payload: add,
-          meta: {
-            hasSideEffects: true,
+            type: 'decrement-counter',
+            payload: add,
+            meta: {
+              hasSideEffects: true,
+            },
           },
-        }
         };
-      }
+      },
     );
 
     const decrementCounter = reg.register(
@@ -63,14 +63,14 @@ export function useTrrackTaskManager() {
         setCounter((c) => c - sub);
         return {
           undo: {
-          type: 'increment-counter',
-          payload: sub,
-          meta: {
-            hasSideEffects: true,
+            type: 'increment-counter',
+            payload: sub,
+            meta: {
+              hasSideEffects: true,
+            },
           },
-        }
         };
-      }
+      },
     );
 
     return {

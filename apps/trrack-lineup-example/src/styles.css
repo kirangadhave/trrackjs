@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'https://unpkg.com/lineupjs/build/LineUpJS.css';
+@import "https://unpkg.com/lineupjs/build/LineUpJS.css";
 
 #lineup-wrapper {
   display: grid;

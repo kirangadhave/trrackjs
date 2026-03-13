@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  Action,
-  AnyAction,
-  AsyncThunk,
+  type Action,
+  type AnyAction,
+  type AsyncThunk,
+  type ConfigureStoreOptions,
   combineReducers,
   configureStore,
-  ConfigureStoreOptions,
   createAction,
   createListenerMiddleware,
   isAnyOf,
   isAsyncThunkAction,
   isFulfilled,
-  PayloadAction,
-  PayloadActionCreator,
-  Reducer,
-  Slice,
-  SliceCaseReducers,
-  TypedStartListening,
+  type PayloadAction,
+  type PayloadActionCreator,
+  type Reducer,
+  type Slice,
+  type SliceCaseReducers,
+  type TypedStartListening,
 } from '@reduxjs/toolkit';
 import { initializeTrrack, Registry } from '@trrack/core';
 
@@ -25,9 +25,9 @@ import {
   ACTION_NAME_TYPE_MAP,
   ASYNC_THUNKS,
   DO_UNDO_ACTION_CREATORS,
-  GeneratedDoUndoActionCreators,
-  LabelGenerators,
+  type GeneratedDoUndoActionCreators,
   LABELS,
+  type LabelGenerators,
   NO_OP_ACTION,
 } from '../slice/types';
 import { changeCurrent, getTrrackStore } from './trrackStore';
@@ -35,7 +35,7 @@ import { changeCurrent, getTrrackStore } from './trrackStore';
 // Fin.
 
 export const trrackTraverseAction = createAction('traverse', function prepare<
-  T
+  T,
 >(state: T) {
   return {
     payload: state,
@@ -43,15 +43,15 @@ export const trrackTraverseAction = createAction('traverse', function prepare<
 });
 
 function isTraverseAction(
-  action: AnyAction
+  action: AnyAction,
 ): action is ReturnType<typeof trrackTraverseAction> {
   return action.type === trrackTraverseAction.type;
 }
 
 function makeTrrackable<State, A extends Action = AnyAction>(
-  reducer: Reducer<State, A>
+  reducer: Reducer<State, A>,
 ) {
-  return function (state: State | undefined, action: A) {
+  return (state: State | undefined, action: A) => {
     if (isTraverseAction(action))
       return reducer(action.payload as State, action);
     return reducer(state, action);
@@ -77,70 +77,85 @@ function mergeDoUndoActionCreators(slices: Slice[]) {
 }
 
 function mergeReducerEventTypes(slices: Slice[]) {
-  return slices.reduce((acc, slice) => {
-    if (isSliceTrrackable(slice)) {
-      return { ...acc, ...slice[ACTION_NAME_TYPE_MAP] };
-    }
-    return acc;
-  }, {} as { [key: string]: string });
+  return slices.reduce(
+    (acc, slice) => {
+      if (isSliceTrrackable(slice)) {
+        return { ...acc, ...slice[ACTION_NAME_TYPE_MAP] };
+      }
+      return acc;
+    },
+    {} as { [key: string]: string },
+  );
 }
 
 function mergeAsyncThunks(slices: Slice[]) {
-  return slices.reduce((acc, slice) => {
-    if (isSliceTrrackable(slice)) {
-      const asyncs: { [key: string]: AsyncThunk<any, any, any> } = {};
+  return slices.reduce(
+    (acc, slice) => {
+      if (isSliceTrrackable(slice)) {
+        const asyncs: { [key: string]: AsyncThunk<any, any, any> } = {};
 
-      slice[ASYNC_THUNKS].forEach((thunk) => {
-        asyncs[thunk.typePrefix] = thunk;
-        asyncs[thunk.fulfilled.type] = thunk;
-      });
+        slice[ASYNC_THUNKS].forEach((thunk) => {
+          asyncs[thunk.typePrefix] = thunk;
+          asyncs[thunk.fulfilled.type] = thunk;
+        });
 
-      return { ...acc, ...asyncs };
-    }
-    return acc;
-  }, {} as { [key: string]: AsyncThunk<any, any, any> });
+        return { ...acc, ...asyncs };
+      }
+      return acc;
+    },
+    {} as { [key: string]: AsyncThunk<any, any, any> },
+  );
 }
 
 function mergeTrrackedActions(slices: Slice[]) {
-  return slices.reduce((acc, slice) => {
-    if (isSliceTrrackable(slice)) {
-      return [
-        ...acc,
-        ...(Object.values(slice.actions) as Array<PayloadActionCreator>),
-      ];
-    }
-    return acc;
-  }, [] as Array<PayloadActionCreator>);
+  return slices.reduce(
+    (acc, slice) => {
+      if (isSliceTrrackable(slice)) {
+        return [
+          ...acc,
+          ...(Object.values(slice.actions) as Array<PayloadActionCreator>),
+        ];
+      }
+      return acc;
+    },
+    [] as Array<PayloadActionCreator>,
+  );
 }
 
-function mergeReducers(slices: Slice[]) {
-  return slices.reduce((acc, slice) => {
-    const scr: SliceCaseReducers<any> = {};
+function _mergeReducers(slices: Slice[]) {
+  return slices.reduce(
+    (acc, slice) => {
+      const scr: SliceCaseReducers<any> = {};
 
-    Object.entries(slice.actions).forEach(([key, action]) => {
-      scr[action.type] = slice.caseReducers[key];
-    });
+      Object.entries(slice.actions).forEach(([key, action]) => {
+        scr[action.type] = slice.caseReducers[key];
+      });
 
-    return { ...acc, ...scr };
-  }, {} as SliceCaseReducers<any>);
+      return { ...acc, ...scr };
+    },
+    {} as SliceCaseReducers<any>,
+  );
 }
 
-function mergeActionToSliceName(slices: Slice[]) {
-  return slices.reduce((acc, slice) => {
-    const scr: { [key: string]: string } = {};
+function _mergeActionToSliceName(slices: Slice[]) {
+  return slices.reduce(
+    (acc, slice) => {
+      const scr: { [key: string]: string } = {};
 
-    Object.values(slice.actions).forEach((action) => {
-      scr[action.type] = slice.name;
-    });
+      Object.values(slice.actions).forEach((action) => {
+        scr[action.type] = slice.name;
+      });
 
-    return { ...acc, ...scr };
-  }, {} as { [key: string]: string });
+      return { ...acc, ...scr };
+    },
+    {} as { [key: string]: string },
+  );
 }
 
 export function configureTrrackableStore<State>(
   opts: ConfigureStoreOptions<State, AnyAction> & {
     slices: Slice[];
-  }
+  },
 ) {
   const trrackMiddleware = createListenerMiddleware();
 
@@ -151,7 +166,7 @@ export function configureTrrackableStore<State>(
     reducer: makeTrrackable(
       typeof _reducer === 'function'
         ? _reducer
-        : (combineReducers(_reducer) as any)
+        : (combineReducers(_reducer) as any),
     ),
     middleware(getDefaultMiddleware) {
       const suppliedMiddleware = opts.middleware;
@@ -238,7 +253,7 @@ export function configureTrrackableStore<State>(
       const isThunk = isFulfilled(action);
 
       const type = isThunk ? asyncThunks[action.type].typePrefix : action.type;
-      const payload = action['payload'];
+      const payload = action.payload;
       const labelGenerator = labels[type];
 
       const label = labelGenerator(payload);

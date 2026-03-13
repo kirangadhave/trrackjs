@@ -1,9 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { Middlewares, PossibleMiddleware } from './types';
+import type { Middlewares, PossibleMiddleware } from './types';
 
 export function isMiddlewareArray<State>(
-  middleware: PossibleMiddleware<State>
+  middleware: PossibleMiddleware<State>,
 ): middleware is Middlewares<State> {
   return Array.isArray(middleware);
 }

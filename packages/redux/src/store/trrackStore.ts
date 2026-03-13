@@ -1,5 +1,9 @@
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NodeId } from '@trrack/core';
+import {
+  configureStore,
+  createSlice,
+  type PayloadAction,
+} from '@reduxjs/toolkit';
+import type { NodeId } from '@trrack/core';
 
 type TrrackSliceState = {
   current: NodeId;

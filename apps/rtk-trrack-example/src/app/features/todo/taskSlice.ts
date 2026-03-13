@@ -1,8 +1,8 @@
-import { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import { createTrrackableSlice } from '@trrack/redux';
 import { v4 as uuid } from 'uuid';
 
-import { Todo } from './types';
+import type { Todo } from './types';
 
 const initialState: Todo[] = [];
 
@@ -30,7 +30,7 @@ export const tasksSlice = createTrrackableSlice({
     },
     setTodoStatus(
       state,
-      action: PayloadAction<{ id: string; completed: boolean }>
+      action: PayloadAction<{ id: string; completed: boolean }>,
     ) {
       const index = state.findIndex((t) => t.id === action.payload.id);
       state[index].completed = action.payload.completed;

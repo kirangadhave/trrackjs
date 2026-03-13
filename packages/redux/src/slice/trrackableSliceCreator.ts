@@ -1,46 +1,46 @@
 import {
-  AsyncThunk,
-  CaseReducerActions,
+  type AsyncThunk,
+  type CaseReducerActions,
+  type CreateSliceOptions,
   createSlice,
-  CreateSliceOptions,
-  PayloadAction,
-  PayloadActionCreator,
-  Slice,
-  SliceCaseReducers,
+  type PayloadAction,
+  type PayloadActionCreator,
+  type Slice,
+  type SliceCaseReducers,
 } from '@reduxjs/toolkit';
 
 import {
   ACTION_NAME_TYPE_MAP,
-  ActionNameToTypeMap,
+  type ActionNameToTypeMap,
   ASYNC_THUNKS,
   DO_UNDO_ACTION_CREATORS,
-  DoUndoActionCreators,
+  type DoUndoActionCreators,
   EVENTS,
-  GeneratedDoUndoActionCreators,
-  LabelGenerators,
-  LabelLike,
+  type GeneratedDoUndoActionCreators,
   LABELS,
+  type LabelGenerators,
+  type LabelLike,
   NO_OP_ACTION,
-  ReducerEventTypes,
+  type ReducerEventTypes,
   TRRACKABLE,
-  TrrackableSlice,
+  type TrrackableSlice,
 } from './types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 function createNameToTypeMap<
   CaseReducers extends SliceCaseReducers<any>,
-  S extends Slice<any, CaseReducers, any>
+  S extends Slice<any, CaseReducers, any>,
 >(slice: S) {
   const actionNameToType = {} as ActionNameToTypeMap<CaseReducers>;
 
   Object.entries(slice.actions).forEach(
     ([key, action]: [
       keyof CaseReducerActions<CaseReducers, any>,
-      PayloadActionCreator<any>
+      PayloadActionCreator<any>,
     ]) => {
       actionNameToType[key] =
         action.type as ActionNameToTypeMap<CaseReducers>[typeof key];
-    }
+    },
   );
 
   return actionNameToType;
@@ -48,11 +48,11 @@ function createNameToTypeMap<
 
 function normalizeLabelGenerators<
   CaseReducers extends SliceCaseReducers<any>,
-  S extends Slice<any, CaseReducers, any>
+  S extends Slice<any, CaseReducers, any>,
 >(
   slice: S,
   suppliedLabelLikes: LabelLike<CaseReducers>,
-  thunks: Array<AsyncThunk<any, any, any>>
+  thunks: Array<AsyncThunk<any, any, any>>,
 ): LabelGenerators {
   const labelGenerators: LabelGenerators = {};
 
@@ -80,7 +80,7 @@ function normalizeLabelGenerators<
   Object.entries(slice.actions).forEach(
     ([key, action]: [
       keyof CaseReducerActions<CaseReducers, any>,
-      PayloadActionCreator<any>
+      PayloadActionCreator<any>,
     ]) => {
       const suppliedLabelLike = suppliedLabelLikes[key];
 
@@ -100,9 +100,9 @@ function normalizeLabelGenerators<
       }
 
       throw new Error(
-        `Error creating label generator for ${key.toString()}: ${action.type}`
+        `Error creating label generator for ${key.toString()}: ${action.type}`,
       );
-    }
+    },
   );
 
   return labelGenerators;
@@ -111,11 +111,11 @@ function normalizeLabelGenerators<
 function createReducerEventTypes<
   Event extends string,
   CaseReducers extends SliceCaseReducers<any>,
-  S extends Slice<any, CaseReducers, any>
+  S extends Slice<any, CaseReducers, any>,
 >(
   slice: S,
   suppliedEventTypes: Partial<ReducerEventTypes<Event, CaseReducers>>,
-  thunks: Array<AsyncThunk<any, any, any>>
+  thunks: Array<AsyncThunk<any, any, any>>,
 ): ReducerEventTypes<Event, CaseReducers> {
   const reducerEventTypes: any = {};
 
@@ -133,13 +133,13 @@ function createReducerEventTypes<
   Object.entries(slice.actions).forEach(
     ([key, action]: [
       keyof CaseReducerActions<CaseReducers, any>,
-      PayloadActionCreator<any>
+      PayloadActionCreator<any>,
     ]) => {
       const suppliedEventType = suppliedEventTypes[key];
 
       if (!suppliedEventType) reducerEventTypes[action.type] = action.type;
       else reducerEventTypes[action.type] = suppliedEventType;
-    }
+    },
   );
 
   return reducerEventTypes as ReducerEventTypes<Event, CaseReducers>;
@@ -147,11 +147,11 @@ function createReducerEventTypes<
 
 function createDoUndoActionCreators<
   State,
-  CaseReducers extends SliceCaseReducers<any>
+  CaseReducers extends SliceCaseReducers<any>,
 >(
   slice: Slice<State, CaseReducers, any>,
   suppliedDoUndoActionCreators: DoUndoActionCreators<CaseReducers>,
-  thunks: Array<AsyncThunk<any, any, any>>
+  thunks: Array<AsyncThunk<any, any, any>>,
 ): GeneratedDoUndoActionCreators {
   const duac: GeneratedDoUndoActionCreators = {};
 
@@ -189,7 +189,7 @@ function createDoUndoActionCreators<
   Object.entries(slice.actions).forEach(
     <K extends keyof CaseReducerActions<CaseReducers, any>>([key, action]: [
       K,
-      Exclude<CaseReducerActions<CaseReducers, any>[K], void>
+      Exclude<CaseReducerActions<CaseReducers, any>[K], void>,
     ]) => {
       const suppliedDoUndoActionCreator =
         suppliedDoUndoActionCreators[key as string];
@@ -214,7 +214,7 @@ function createDoUndoActionCreators<
           };
         };
       }
-    }
+    },
   );
 
   return duac;
@@ -224,14 +224,14 @@ export function createTrrackableSlice<
   State,
   CaseReducers extends SliceCaseReducers<State>,
   Event extends string = string,
-  Name extends string = string
+  Name extends string = string,
 >(
   options: CreateSliceOptions<State, CaseReducers, Name> & {
     labels?: LabelLike<CaseReducers>;
     reducerEventTypes?: Partial<ReducerEventTypes<Event, CaseReducers>>;
     doUndoActionCreators?: DoUndoActionCreators<CaseReducers>;
     asyncThunks?: Array<AsyncThunk<any, any, any>>;
-  }
+  },
 ): TrrackableSlice<State, CaseReducers, Event, Name> {
   const slice = createSlice(options);
 
@@ -241,19 +241,19 @@ export function createTrrackableSlice<
   const labels = normalizeLabelGenerators(
     slice,
     options.labels || {},
-    options.asyncThunks || []
+    options.asyncThunks || [],
   );
 
   const reducerEventTypes = createReducerEventTypes(
     slice,
     options.reducerEventTypes || {},
-    options.asyncThunks || []
+    options.asyncThunks || [],
   );
 
   const doUndoActioncreators = createDoUndoActionCreators(
     slice,
     options.doUndoActionCreators || {},
-    options.asyncThunks || []
+    options.asyncThunks || [],
   );
 
   return {

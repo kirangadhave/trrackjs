@@ -1,6 +1,6 @@
 import { createTrrackableSlice } from '@trrack/redux';
 
-import { Counter, counterInitState } from './types';
+import { type Counter, counterInitState } from './types';
 
 export const counterSlice = createTrrackableSlice({
   name: 'counter',

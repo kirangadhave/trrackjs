@@ -1,6 +1,14 @@
-import { Box, Checkbox, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import {
+  Box,
+  Checkbox,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from '@mui/material';
 import Tree, { useTreeState } from 'react-hyper-tree';
-import { TreeNode } from 'react-hyper-tree/dist/helpers/node';
+import type { TreeNode } from 'react-hyper-tree/dist/helpers/node';
 
 import { Navbar } from './components/Navbar';
 import { useTrrackTaskManager } from './store/trrack';
@@ -39,12 +47,12 @@ function App() {
                     if (task.completed)
                       trrack.apply(
                         `Mark ${task.desc} as not done`,
-                        actions.markTaskIncomplete(task)
+                        actions.markTaskIncomplete(task),
                       );
                     else
                       trrack.apply(
                         `Mark ${task.desc} as done`,
-                        actions.markTaskComplete(task)
+                        actions.markTaskComplete(task),
                       );
                   }}
                 />

@@ -4,8 +4,8 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import UndoIcon from '@mui/icons-material/Undo';
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
 
-import { Trrack } from '../store/trrack';
-import { Task } from '../store/types';
+import type { Trrack } from '../store/trrack';
+import type { Task } from '../store/types';
 
 export function Navbar({ t }: { t: Trrack }) {
   const { trrack, isAtLatest, isAtRoot, actions, counter } = t;

@@ -1,7 +1,7 @@
 describe('Placeholder test', () => {
-    it('should pass', () => {
-        expect(true).toBeTruthy();
-    });
+  it('should pass', () => {
+    expect(true).toBeTruthy();
+  });
 });
 
 // describe('Provenance Node', () => {
